@@ -18,6 +18,9 @@
 		DCF258B229B73B3C00603658 /* TrendingMoviesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF258B129B73B3C00603658 /* TrendingMoviesModel.swift */; };
 		DCF258B429B73CC200603658 /* APIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF258B329B73CC200603658 /* APIServices.swift */; };
 		DCF258B729B74F1E00603658 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF258B629B74F1E00603658 /* Observable.swift */; };
+		DCF258BF29B76F1F00603658 /* MainMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF258BD29B76F1F00603658 /* MainMovieCell.swift */; };
+		DCF258C029B76F1F00603658 /* MainMovieCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCF258BE29B76F1F00603658 /* MainMovieCell.xib */; };
+		DCF258C229B7BFF000603658 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF258C129B7BFF000603658 /* UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		DCF258B129B73B3C00603658 /* TrendingMoviesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingMoviesModel.swift; sourceTree = "<group>"; };
 		DCF258B329B73CC200603658 /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
 		DCF258B629B74F1E00603658 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		DCF258BD29B76F1F00603658 /* MainMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMovieCell.swift; sourceTree = "<group>"; };
+		DCF258BE29B76F1F00603658 /* MainMovieCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMovieCell.xib; sourceTree = "<group>"; };
+		DCF258C129B7BFF000603658 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +90,7 @@
 		DCF2589E29B720E300603658 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				DCF258C129B7BFF000603658 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -139,6 +146,7 @@
 		DCF258A529B721BD00603658 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DCF258B829B76ED900603658 /* MainMovieCell */,
 				DCF2589529B720A400603658 /* LaunchScreen.storyboard */,
 			);
 			path = View;
@@ -160,6 +168,15 @@
 				DCF258B629B74F1E00603658 /* Observable.swift */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		DCF258B829B76ED900603658 /* MainMovieCell */ = {
+			isa = PBXGroup;
+			children = (
+				DCF258BD29B76F1F00603658 /* MainMovieCell.swift */,
+				DCF258BE29B76F1F00603658 /* MainMovieCell.xib */,
+			);
+			path = MainMovieCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +240,7 @@
 				DCF2589729B720A400603658 /* LaunchScreen.storyboard in Resources */,
 				DCF2589429B720A400603658 /* Assets.xcassets in Resources */,
 				DCF258AA29B721EF00603658 /* MainViewController.xib in Resources */,
+				DCF258C029B76F1F00603658 /* MainMovieCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,12 +252,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCF258B729B74F1E00603658 /* Observable.swift in Sources */,
+				DCF258BF29B76F1F00603658 /* MainMovieCell.swift in Sources */,
 				DCF258A929B721EF00603658 /* MainViewController.swift in Sources */,
 				DCF2588B29B720A200603658 /* AppDelegate.swift in Sources */,
 				DCF258AC29B729E400603658 /* MainViewModel.swift in Sources */,
 				DCF258B029B738CE00603658 /* NetworkConstant.swift in Sources */,
 				DCF258AE29B72A1000603658 /* MainViewController+TableView.swift in Sources */,
 				DCF258B429B73CC200603658 /* APIServices.swift in Sources */,
+				DCF258C229B7BFF000603658 /* UIView+Extension.swift in Sources */,
 				DCF258B229B73B3C00603658 /* TrendingMoviesModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
