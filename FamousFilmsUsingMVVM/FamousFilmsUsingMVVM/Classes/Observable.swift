@@ -15,7 +15,6 @@ class Observable<T>{
         didSet{
             DispatchQueue.main.async {
                 self.listener?(self.value)
-                print("\(self.value)")
             }
         }
     }

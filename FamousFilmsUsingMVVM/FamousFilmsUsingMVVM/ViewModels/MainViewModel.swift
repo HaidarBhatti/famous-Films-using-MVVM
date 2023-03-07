@@ -35,11 +35,10 @@ class MainViewModel{
             self?.isLoading.value = false
             switch result{
             case .success(let data):
-                print("trending \(data.results.count)")
                 self?.dataSource = data
                 self?.mapCellData()
             case .failure(let error):
-                print(error)
+                print("error: \(error)")
             }
         }
     }

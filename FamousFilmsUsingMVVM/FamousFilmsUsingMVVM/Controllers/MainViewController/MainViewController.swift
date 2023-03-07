@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
         }
         
         viewModel.cellDataSource.bind { [weak self] movies in
-            guard let self = self, let movies = movies else { return }
+            guard let self = self, movies != nil else { return }
             self.reloadTableView()
         }
     }
