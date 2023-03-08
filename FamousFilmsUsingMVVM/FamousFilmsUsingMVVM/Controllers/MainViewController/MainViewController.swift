@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var viewModel = MainViewModel()
+    var cellDataSource: [MovieTableCellViewModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +23,7 @@ class MainViewController: UIViewController {
     
     func configureViews(){
         title = "title here from model"
-        view.backgroundColor = .red
+        view.backgroundColor = .systemBackground
         setUpTableView()
     }
     
@@ -45,10 +46,19 @@ class MainViewController: UIViewController {
         }
         
         viewModel.cellDataSource.bind { [weak self] movies in
-            guard let self = self, movies != nil else { return }
+            guard let self = self, let movies = movies else { return }
+            self.cellDataSource = movies
             self.reloadTableView()
         }
     }
     
+    func openDetails(movieId: Int){
+        guard let movie = viewModel.retrieveMovie(withId: movieId) else { return }
+        let viewModel = DetailsMovieViewModel(movie: movie)
+        let detailsViewController = DetailsMovieViewController(viewModel: viewModel)
+        DispatchQueue.main.async {
+            self.navigationController?.pushViewController(detailsViewController, animated: true)
+        }
+    }
 
 }
