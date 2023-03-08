@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailsMovieViewController" customModule="FamousFilmsUsingMVVM" customModuleProvider="target">
+            <connections>
+                <outlet property="lblMovieDescription" destination="0Yx-Lf-SVE" id="rmc-wS-hcR"/>
+                <outlet property="lblMovieTitle" destination="GFf-To-Zpb" id="Lfz-Il-UQG"/>
+                <outlet property="movieImageView" destination="kiT-R3-EUd" id="CK5-r8-kYM"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kiT-R3-EUd">
+                    <rect key="frame" x="8" y="44" width="398" height="295.5"/>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="J9y-i4-aVn">
+                    <rect key="frame" x="8" y="355.5" width="398" height="70"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFf-To-Zpb">
+                            <rect key="frame" x="0.0" y="0.0" width="398" height="37"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yx-Lf-SVE">
+                            <rect key="frame" x="0.0" y="47" width="398" height="23"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="kiT-R3-EUd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="4Lm-U7-2ru"/>
+                <constraint firstItem="kiT-R3-EUd" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.33" id="62j-97-czJ"/>
+                <constraint firstItem="kiT-R3-EUd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="Kbb-T0-VjK"/>
+                <constraint firstItem="J9y-i4-aVn" firstAttribute="top" secondItem="kiT-R3-EUd" secondAttribute="bottom" constant="16" id="W8p-ow-mzW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kiT-R3-EUd" secondAttribute="trailing" constant="8" id="gav-2d-beO"/>
+                <constraint firstItem="J9y-i4-aVn" firstAttribute="trailing" secondItem="kiT-R3-EUd" secondAttribute="trailing" id="n6t-Rb-Mxy"/>
+                <constraint firstItem="J9y-i4-aVn" firstAttribute="leading" secondItem="kiT-R3-EUd" secondAttribute="leading" id="sOp-EM-FeG"/>
+            </constraints>
+            <point key="canvasLocation" x="131.8840579710145" y="79.6875"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
