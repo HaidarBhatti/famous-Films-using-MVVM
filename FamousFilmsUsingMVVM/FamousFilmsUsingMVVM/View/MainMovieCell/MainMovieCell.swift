@@ -6,8 +6,19 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MainMovieCell: UITableViewCell {
+    
+    public static var identifier: String{
+        get{
+            return "MainMovieCell"
+        }
+    }
+    
+    public static func register() -> UINib {
+        return UINib(nibName: "MainMovieCell", bundle: nil)
+    }
 
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var movieImg: UIImageView!
@@ -17,10 +28,17 @@ class MainMovieCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        cellView.layer.borderColor = UIColor.label.cgColor
-        cellView.layer.cornerRadius = 10
-        cellView.layer.borderWidth = 1
-        movieImg.layer.cornerRadius = 5
+        cellView.addBorder(color: .label, width: 1)
+        cellView.round()
+        cellView.backgroundColor = .lightGray
+        movieImg.round(5)
+    }
+    
+    func setUpCell(viewModel: MovieTableCellViewModel){
+        movieImg.sd_setImage(with: viewModel.imageURL)
+        lblFilmTitle.text = viewModel.title
+        lblDate.text = viewModel.date
+        lblRating.text = viewModel.ratings
     }
     
 }
