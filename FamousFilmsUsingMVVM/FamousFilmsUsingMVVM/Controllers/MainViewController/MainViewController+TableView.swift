@@ -18,7 +18,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func registerCells(){
-        tableView.register(MainMovieCell.register(), forCellReuseIdentifier: MainMovieCell.identifier)
+        tableView.register(HorizontalCollectionTableViewCell.register(), forCellReuseIdentifier: HorizontalCollectionTableViewCell.identifier)
     }
     
     func reloadTableView(){
@@ -36,19 +36,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MainMovieCell.identifier, for: indexPath) as? MainMovieCell else { return UITableViewCell() }
-        let cellViewModel = cellDataSource[indexPath.row]
-        cell.setUpCell(viewModel: cellViewModel)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: HorizontalCollectionTableViewCell.identifier, for: indexPath) as? HorizontalCollectionTableViewCell else { return UITableViewCell() }
+        cell.configure(data: viewModel.cellForRowAt())
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 250
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movieId = cellDataSource[indexPath.row].id
-        self.openDetails(movieId: movieId)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let movieId = cellDataSource[indexPath.row].id
+//        self.openDetails(movieId: movieId)
+//    }
     
 }
