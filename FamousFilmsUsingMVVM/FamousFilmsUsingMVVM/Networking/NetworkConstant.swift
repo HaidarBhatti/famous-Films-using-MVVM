@@ -39,5 +39,25 @@ class NetworkConstant{
             return "trending/"
         }
     }
+    public var popular: String{
+        get{
+            return "popular"
+        }
+    }
+    public var movie: String{
+        get{
+            return "movie"
+        }
+    }
+    public var language: String{
+        get{
+            return "language"
+        }
+    }
+    public var page: String{
+        get{
+            return "page"
+        }
+    }
         
 }
