@@ -18,17 +18,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureViews()
         bindViewModel()
+        viewModel.getTrendingData()
     }
     
     func configureViews(){
         title = "Home"
         view.backgroundColor = .systemBackground
         setUpTableView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.getTrendingData()
     }
     
     func bindViewModel(){
@@ -40,8 +36,8 @@ class MainViewController: UIViewController {
                 }
                 else{
                     self.activityIndicator.stopAnimating()
+                    self.reloadTableView()
                 }
-                self.reloadTableView()
             }
         }
     }

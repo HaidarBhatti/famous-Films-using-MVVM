@@ -13,7 +13,9 @@ class MainViewModel{
     var isLoadingPopularMovies: Observable<Bool> = Observable(false)
     
     var dataSource: TrendingMoviesModel?
-    var trendingCollData: [MainMovieCellViewModel]?
+    var trendingCollData: [MovieCellData]?
+    
+//    var
     
     func noOfSections() -> Int{
         return 1
@@ -23,7 +25,7 @@ class MainViewModel{
         return 1
     }
     
-    func cellForRowAt() -> [MainMovieCellViewModel]?{
+    func cellForRowAt() -> [MovieCellData]?{
         guard let trendingCollData = trendingCollData else {
             return nil
         }
@@ -36,11 +38,11 @@ class MainViewModel{
         }
         isLoadingTrendingMovies.value = true
         APIServices.getTrendingMovies(mediaType: .all, timeWindow: .day) { [weak self] result in
-            self?.isLoadingTrendingMovies.value = false
             switch result{
             case .success(let data):
                 self?.dataSource = data
                 self?.mapTrendingCellData()
+                self?.isLoadingTrendingMovies.value = false
             case .failure(let error):
                 print("error: \(error)")
             }
@@ -65,14 +67,14 @@ class MainViewModel{
     }
     
     func mapTrendingCellData(){
-        self.trendingCollData = self.dataSource?.results.compactMap({ MainMovieCellViewModel(movie: $0) })
+        self.trendingCollData = self.dataSource?.results.compactMap({ MovieCellData(movie: $0) })
     }
     
     func retrieveMovie( withId id: Int) -> TrendingMovies? {
         guard let movie = dataSource?.results.first(where: { $0.id == id }) else { return nil }
         return movie
     }
-    func retrieveTrendingMovie(withId id: Int) -> MainMovieCellViewModel? {
+    func retrieveTrendingMovie(withId id: Int) -> MovieCellData? {
         guard let movie = trendingCollData?.first(where: { $0.id == id }) else { return nil }
         return movie
     }

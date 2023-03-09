@@ -9,10 +9,10 @@ import Foundation
 
 class DetailsMovieViewModel{
     
-    var movie: MainMovieCellViewModel
+    var movie: MovieCellData
     var detailsScreenTitle = "Movie Details"
     
-    init(movie: MainMovieCellViewModel){
+    init(movie: MovieCellData){
         self.movie = movie
     }
 }

@@ -11,27 +11,19 @@ class HorizontalCollectionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var viewModel = MainViewModel()
-
-    private var collData: [MainMovieCellViewModel] = []{
-        didSet{
-            self.reloadCollectionView()
-        }
-    }
+    var viewModel: CollectionViewModel?
     public static var identifier: String{
         get{
             return "HorizontalCollectionTableViewCell"
         }
     }
-    
-    func configure(data collectionData: [MainMovieCellViewModel]?){
-        if collectionData != nil{
-            collData = collectionData!
-        }
-    }
-    
     public static func register() -> UINib {
         return UINib(nibName: identifier, bundle: nil)
+    }
+    
+    func configure(with viewModel: CollectionViewModel){
+        self.viewModel = viewModel
+        self.reloadCollectionView()
     }
     
     override func awakeFromNib() {
@@ -40,18 +32,17 @@ class HorizontalCollectionTableViewCell: UITableViewCell {
     }
     
     func openDetails(movieId: Int){
-        guard let movie = viewModel.retrieveTrendingMovie(withId: movieId) else { return }
-        let viewModel = DetailsMovieViewModel(movie: movie)
-        let detailsViewController = DetailsMovieViewController(viewModel: viewModel)
-        DispatchQueue.main.async {
-            UIApplication.shared.keyWindow!.rootViewController!.topMostViewController().navigationController?.pushViewController(detailsViewController, animated: true)
-        }
+//        guard let movie = viewModel.retrieveTrendingMovie(withId: movieId) else { return }
+//        let viewModel = DetailsMovieViewModel(movie: movie)
+//        let detailsViewController = DetailsMovieViewController(viewModel: viewModel)
+//        DispatchQueue.main.async {
+//            UIApplication.shared.keyWindow!.rootViewController!.topMostViewController().navigationController?.pushViewController(detailsViewController, animated: true)
+//        }
     }
 
 }
 
 extension HorizontalCollectionTableViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
-    
     func setUpCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -70,12 +61,13 @@ extension HorizontalCollectionTableViewCell: UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collData.count
+        return viewModel?.trendingCollData.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let data = viewModel?.trendingCollData else { return UICollectionViewCell() }
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainMovieCollectionCell.identifier, for: indexPath) as? MainMovieCollectionCell else { return UICollectionViewCell() }
-        cell.setUpCell(cellData: collData[indexPath.item])
+        cell.setUpCell(cellData: data[indexPath.item])
         return cell
     }
     
@@ -84,9 +76,9 @@ extension HorizontalCollectionTableViewCell: UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        openDetails(movieId: collData[indexPath.item].id)
+        guard let data = viewModel?.trendingCollData else { return }
+        openDetails(movieId: data[indexPath.item].id)
     }
-    
 }
 
 

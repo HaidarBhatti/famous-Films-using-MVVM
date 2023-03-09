@@ -8,7 +8,7 @@
 import Foundation
 
 
-class MainMovieCellViewModel{
+class MovieCellData{
             
     var id: Int
     var movieTitle: String

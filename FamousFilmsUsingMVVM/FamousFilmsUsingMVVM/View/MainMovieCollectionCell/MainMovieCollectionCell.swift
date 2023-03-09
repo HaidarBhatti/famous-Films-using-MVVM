@@ -28,7 +28,7 @@ class MainMovieCollectionCell: UICollectionViewCell {
         imgMovie.round(5)
     }
     
-    func setUpCell(cellData: MainMovieCellViewModel){
+    func setUpCell(cellData: MovieCellData){
         imgMovie.sd_setImage(with: cellData.movieImageURL)
         lblMovieTitle.text = cellData.movieTitle
         lblMovieReleaseDate.text = cellData.movieReleaseDate

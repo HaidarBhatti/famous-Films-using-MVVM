@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC8B7D2B29BA0694005D848E /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7D2A29BA0694005D848E /* CollectionViewModel.swift */; };
 		DCF2588B29B720A200603658 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF2588A29B720A200603658 /* AppDelegate.swift */; };
 		DCF2589429B720A400603658 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DCF2589329B720A400603658 /* Assets.xcassets */; };
 		DCF2589729B720A400603658 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCF2589529B720A400603658 /* LaunchScreen.storyboard */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC8B7D2A29BA0694005D848E /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		DCF2588729B720A200603658 /* FamousFilmsUsingMVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FamousFilmsUsingMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF2588A29B720A200603658 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DCF2589329B720A400603658 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				DCF258D429B8A85000603658 /* MainMovieCellViewModel */,
 				DCF258AB29B729E400603658 /* MainViewModel.swift */,
+				DC8B7D2A29BA0694005D848E /* CollectionViewModel.swift */,
 				DCF258CD29B8605200603658 /* DetailsMovieViewModel.swift */,
 			);
 			path = ViewModels;
@@ -318,6 +321,7 @@
 				DCF258B429B73CC200603658 /* APIServices.swift in Sources */,
 				DCF258D629B8A85D00603658 /* HomeMovieCellViewModel.swift in Sources */,
 				DCF258CE29B8605200603658 /* DetailsMovieViewModel.swift in Sources */,
+				DC8B7D2B29BA0694005D848E /* CollectionViewModel.swift in Sources */,
 				DCF258C229B7BFF000603658 /* UIView+Extension.swift in Sources */,
 				DCF258B229B73B3C00603658 /* TrendingMoviesModel.swift in Sources */,
 				DCF258DA29B8AC4700603658 /* HorizontalCollectionTableViewCell.swift in Sources */,
