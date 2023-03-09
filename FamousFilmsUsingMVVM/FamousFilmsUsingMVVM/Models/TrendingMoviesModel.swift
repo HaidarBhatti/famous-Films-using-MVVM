@@ -9,7 +9,7 @@ import Foundation
 
 struct TrendingMoviesModel: Codable {
     let page: Int
-    let results: [Movie]
+    let results: [TrendingMovies]
     let totalPages, totalResults: Int
 
     enum CodingKeys: String, CodingKey {
@@ -20,43 +20,43 @@ struct TrendingMoviesModel: Codable {
 }
 
 // MARK: - Result
-struct Movie: Codable {
+struct TrendingMovies: Codable {
     let adult: Bool
     let backdropPath: String
     let id: Int
-    let name: String?
+    let title: String?
     let originalLanguage: OriginalLanguage
-    let originalName: String?
+    let originalTitle: String?
     let overview, posterPath: String
     let mediaType: MediaType
     let genreIDS: [Int]
     let popularity: Double
-    let firstAirDate: String?
+    let releaseDate: String?
+    let video: Bool?
     let voteAverage: Double
     let voteCount: Int
+    let name, originalName, firstAirDate: String?
     let originCountry: [String]?
-    let title, originalTitle, releaseDate: String?
-    let video: Bool?
 
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
-        case id, name
+        case id, title
         case originalLanguage = "original_language"
-        case originalName = "original_name"
+        case originalTitle = "original_title"
         case overview
         case posterPath = "poster_path"
         case mediaType = "media_type"
         case genreIDS = "genre_ids"
         case popularity
-        case firstAirDate = "first_air_date"
-        case voteAverage = "vote_average"
-        case voteCount = "vote_count"
-        case originCountry = "origin_country"
-        case title
-        case originalTitle = "original_title"
         case releaseDate = "release_date"
         case video
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+        case name
+        case originalName = "original_name"
+        case firstAirDate = "first_air_date"
+        case originCountry = "origin_country"
     }
 }
 
@@ -67,13 +67,14 @@ enum MediaType: String, Codable {
     case person = "person"
 }
 
-enum TimeWindow: String, Codable{
-    case day = "day"
-    case week = "week"
-}
- 
 enum OriginalLanguage: String, Codable {
+    case de = "de"
     case en = "en"
     case es = "es"
     case ja = "ja"
+}
+
+enum TimeWindow: String, Codable{
+    case day = "day"
+    case week = "week"
 }

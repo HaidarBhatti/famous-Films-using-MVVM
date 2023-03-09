@@ -13,7 +13,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var viewModel = MainViewModel()
-    var cellDataSource: [MovieTableCellViewModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +21,7 @@ class MainViewController: UIViewController {
     }
     
     func configureViews(){
-        title = "title here from model"
+        title = "Home"
         view.backgroundColor = .systemBackground
         setUpTableView()
     }
@@ -33,7 +32,7 @@ class MainViewController: UIViewController {
     }
     
     func bindViewModel(){
-        viewModel.isLoading.bind { [weak self] isLoading in
+        viewModel.isLoadingTrendingMovies.bind { [weak self] isLoading in
             guard let self = self, let isLoading = isLoading else { return }
             DispatchQueue.main.async {
                 if isLoading{
@@ -42,22 +41,8 @@ class MainViewController: UIViewController {
                 else{
                     self.activityIndicator.stopAnimating()
                 }
+                self.reloadTableView()
             }
-        }
-        
-        viewModel.cellDataSource.bind { [weak self] movies in
-            guard let self = self, let movies = movies else { return }
-            self.cellDataSource = movies
-            self.reloadTableView()
-        }
-    }
-    
-    func openDetails(movieId: Int){
-        guard let movie = viewModel.retrieveMovie(withId: movieId) else { return }
-        let viewModel = DetailsMovieViewModel(movie: movie)
-        let detailsViewController = DetailsMovieViewController(viewModel: viewModel)
-        DispatchQueue.main.async {
-            self.navigationController?.pushViewController(detailsViewController, animated: true)
         }
     }
 

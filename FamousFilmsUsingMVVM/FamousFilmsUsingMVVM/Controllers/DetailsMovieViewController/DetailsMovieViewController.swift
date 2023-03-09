@@ -32,9 +32,9 @@ class DetailsMovieViewController: UIViewController {
     func configViews(){
         self.title = viewModel.detailsScreenTitle
         
-        movieImageView.sd_setImage(with: viewModel.movieImage)
-        lblMovieTitle.text = viewModel.movieTitle
-        lblMovieDescription.text = viewModel.movieDescription
+        movieImageView.sd_setImage(with: viewModel.movie.movieImageURL)
+        lblMovieTitle.text = viewModel.movie.movieTitle
+        lblMovieDescription.text = viewModel.movie.movieReleaseDate
     }
 
 }
