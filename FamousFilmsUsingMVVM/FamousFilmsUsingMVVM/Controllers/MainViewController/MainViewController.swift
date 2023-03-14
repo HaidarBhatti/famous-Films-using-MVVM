@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
     }
     
     func bindViewModel(){
-        viewModel.isLoadingTrendingMovies.bind { [weak self] isLoading in
+        viewModel.isLoadingHomeData.bind { [weak self] isLoading in
             guard let self = self, let isLoading = isLoading else { return }
             DispatchQueue.main.async {
                 if isLoading{
