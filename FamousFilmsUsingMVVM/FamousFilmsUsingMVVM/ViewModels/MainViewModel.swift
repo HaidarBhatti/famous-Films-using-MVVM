@@ -7,71 +7,99 @@
 
 import Foundation
 
+struct HomeTableModel{
+    var title: String
+    var collData: [MovieCellData]?
+}
+
 class MainViewModel{
     
-    var isLoadingTrendingMovies: Observable<Bool> = Observable(false)
-    var isLoadingPopularMovies: Observable<Bool> = Observable(false)
+    var isLoadingHomeData: Observable<Bool> = Observable(false)
     
-    var dataSource: TrendingMoviesModel?
+    var trendingDataSource: TrendingMoviesModel?
+    var popularDataSource: PopularMoviesModel?
+
     var trendingCollData: [MovieCellData]?
-    
-//    var
+    var popularCollData: [MovieCellData]?
+
+    var tableData = [HomeTableModel]()
     
     func noOfSections() -> Int{
-        return 1
+        return tableData.count
     }
     
     func numberOfRows(in section: Int) -> Int{
-        return 1
+        return tableData.count
     }
     
-    func cellForRowAt() -> [MovieCellData]?{
-        guard let trendingCollData = trendingCollData else {
+    func cellForRowAt(in section: Int) -> [MovieCellData]?{
+        guard let cellData = tableData[section].collData else {
             return nil
         }
-        return trendingCollData
+        return cellData
     }
     
-    func getTrendingData(){
-        if isLoadingTrendingMovies.value ?? true{
+    func getHomeScreenData(){
+        let group = DispatchGroup()
+        group.enter()
+        
+        if isLoadingHomeData.value ?? true{
+            group.leave()
             return
         }
-        isLoadingTrendingMovies.value = true
+        isLoadingHomeData.value = true
         APIServices.getTrendingMovies(mediaType: .all, timeWindow: .day) { [weak self] result in
             switch result{
             case .success(let data):
-                self?.dataSource = data
-                self?.mapTrendingCellData()
-                self?.isLoadingTrendingMovies.value = false
+                self?.trendingDataSource = data
+                self?.mapTrendingCellData(onCompletion: { result in
+                    group.leave()
+                })
             case .failure(let error):
                 print("error: \(error)")
+                group.leave()
             }
         }
-//        getPopularMoviesData()
-    }
-    
-    func getPopularMoviesData(){
-        if isLoadingPopularMovies.value ?? true{
-            return
-        }
-        isLoadingPopularMovies.value = true
+        
+        group.enter()
         APIServices.getPopularMovies(language: .en, page: 1) { [weak self] result in
-            self?.isLoadingPopularMovies.value = false
             switch result{
             case .success(let data):
-                print("data.count \(data.results.count)")
+                self?.popularDataSource = data
+                self?.mapPopularCellData(onCompletion: { result in
+                    group.leave()
+                })
             case .failure(let error):
                 print("error: \(error)")
+                group.leave()
             }
         }
+        
+        group.wait()
+        print("done fetching the data")
+        self.isLoadingHomeData.value = false
     }
     
-    func mapTrendingCellData(){
-        self.trendingCollData = self.dataSource?.results.compactMap({ MovieCellData(movie: $0) })
+    
+    func getTrendingData(){
+        getHomeScreenData()
+    }
+    
+    func mapTrendingCellData(onCompletion: @escaping (_ result: Bool) -> ()){
+        let trendingData = self.trendingDataSource?.results.compactMap({ MovieCellData(movie: $0) })
+        self.trendingCollData = trendingData
+        tableData.append(HomeTableModel(title: "Trending", collData: trendingData))
+        onCompletion(true)
+    }
+    func mapPopularCellData(onCompletion: @escaping (_ result: Bool) -> ()){
+        let popularData = self.popularDataSource?.results.compactMap({ MovieCellData(movie: $0) })
+        self.popularCollData = popularData
+        tableData.append(HomeTableModel(title: "Popular", collData: popularData))
+        onCompletion(true)
     }
     
     func retrieveMovie( withId id: Int) -> TrendingMovies? {
-        guard let movie = dataSource?.results.first(where: { $0.id == id }) else { return nil }
+        guard let movie = trendingDataSource?.results.first(where: { $0.id == id }) else { return nil }
         return movie
     }
     func retrieveTrendingMovie(withId id: Int) -> MovieCellData? {

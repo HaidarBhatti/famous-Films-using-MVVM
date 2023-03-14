@@ -32,12 +32,12 @@ class HorizontalCollectionTableViewCell: UITableViewCell {
     }
     
     func openDetails(movieId: Int){
-//        guard let movie = viewModel.retrieveTrendingMovie(withId: movieId) else { return }
-//        let viewModel = DetailsMovieViewModel(movie: movie)
-//        let detailsViewController = DetailsMovieViewController(viewModel: viewModel)
-//        DispatchQueue.main.async {
-//            UIApplication.shared.keyWindow!.rootViewController!.topMostViewController().navigationController?.pushViewController(detailsViewController, animated: true)
-//        }
+        guard let movie = viewModel?.retrieveMovie(with: movieId) else { return }
+        let viewModel = DetailsMovieViewModel(movie: movie)
+        let detailsViewController = DetailsMovieViewController(viewModel: viewModel)
+        DispatchQueue.main.async {
+            UIApplication.shared.keyWindow!.rootViewController!.topMostViewController().navigationController?.pushViewController(detailsViewController, animated: true)
+        }
     }
 
 }

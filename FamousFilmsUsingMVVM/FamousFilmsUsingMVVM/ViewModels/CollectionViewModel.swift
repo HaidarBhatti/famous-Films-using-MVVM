@@ -15,4 +15,9 @@ class CollectionViewModel{
         self.trendingCollData = trendingCollData
     }
     
+    func retrieveMovie(with id: Int) -> MovieCellData?{
+        guard let movie = self.trendingCollData.first(where: { $0.id == id }) else { return nil }
+        return movie
+    }
+    
 }

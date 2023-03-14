@@ -24,6 +24,14 @@ class MovieCellData{
         movieImageURL = makeImageURL(imageLink: movie.posterPath)
     }
     
+    init(movie: PopularMovies){
+        id = movie.id
+        movieTitle = movie.title 
+        movieReleaseDate = movie.releaseDate
+        popularity = movie.popularity
+        movieImageURL = makeImageURL(imageLink: movie.posterPath)
+    }
+    
     func makeImageURL(imageLink: String) -> URL?{
         return URL(string: "\(NetworkConstant.shared.imageServerAddress)\(imageLink)")
     }

@@ -38,7 +38,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HorizontalCollectionTableViewCell.identifier, for: indexPath) as? HorizontalCollectionTableViewCell else { return UITableViewCell() }
         
-        guard let data = viewModel.cellForRowAt() else {
+        guard let data = viewModel.cellForRowAt(in: indexPath.row) else {
             return UITableViewCell()
         }
         let viewModel = CollectionViewModel(trendingCollData: data)
