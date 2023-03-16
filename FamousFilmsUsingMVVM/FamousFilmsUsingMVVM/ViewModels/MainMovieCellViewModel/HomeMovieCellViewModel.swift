@@ -13,14 +13,16 @@ class MovieCellData{
     var id: Int
     var movieTitle: String
     var movieReleaseDate: String
-    var popularity: Double
+    var voteAverage: Double
     var movieImageURL: URL?
+    var overview: String
     
     init(movie: TrendingMovies){
         id = movie.id
         movieTitle = movie.name ?? movie.title ?? ""
         movieReleaseDate = movie.releaseDate ?? movie.firstAirDate ?? ""
-        popularity = movie.popularity
+        voteAverage = movie.voteAverage
+        overview = movie.overview
         movieImageURL = makeImageURL(imageLink: movie.posterPath)
     }
     
@@ -28,7 +30,8 @@ class MovieCellData{
         id = movie.id
         movieTitle = movie.title 
         movieReleaseDate = movie.releaseDate
-        popularity = movie.popularity
+        voteAverage = movie.voteAverage
+        overview = movie.overview
         movieImageURL = makeImageURL(imageLink: movie.posterPath)
     }
     

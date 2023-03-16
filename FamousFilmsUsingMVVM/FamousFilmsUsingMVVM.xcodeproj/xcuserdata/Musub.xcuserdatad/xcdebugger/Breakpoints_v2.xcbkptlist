@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BAF30233-640B-42E0-9251-3FFFC80C7CC4"
-            shouldBeEnabled = "Yes"
+            uuid = "08919CEA-8081-4B7B-9DB8-42085F8457D5"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FamousFilmsUsingMVVM/Controllers/MainViewController/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "bindViewModel()"
             landmarkType = "7">
          </BreakpointContent>
@@ -23,32 +23,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C3C0F0E4-3720-4138-999D-9D4D334EEE1A"
-            shouldBeEnabled = "Yes"
+            uuid = "589366FE-3772-49C8-A3C9-3DEA8F456ABA"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FamousFilmsUsingMVVM/Controllers/MainViewController/MainViewController+TableView.swift"
+            filePath = "FamousFilmsUsingMVVM/ViewModels/MainViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "getHomeScreenData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D19F06E9-E828-43CD-BCAE-BD7B659BEBF4"
-            shouldBeEnabled = "Yes"
+            uuid = "57039765-BBBD-4201-A3FC-49A922BDA101"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FamousFilmsUsingMVVM/ViewModels/MainViewModel.swift"
+            filePath = "FamousFilmsUsingMVVM/ViewModels/MainMovieCellViewModel/HomeMovieCellViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "getHomeScreenData()"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "init(movie:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D1C8FB5C-FF4C-48A5-9F03-4CA0190BB79F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FamousFilmsUsingMVVM/ViewModels/MainMovieCellViewModel/HomeMovieCellViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "init(movie:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

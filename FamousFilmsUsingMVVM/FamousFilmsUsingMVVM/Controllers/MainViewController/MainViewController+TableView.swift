@@ -15,10 +15,15 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         registerCells()
+        registerHeader()
     }
     
     func registerCells(){
         tableView.register(HorizontalCollectionTableViewCell.register(), forCellReuseIdentifier: HorizontalCollectionTableViewCell.identifier)
+    }
+    
+    func registerHeader(){
+        tableView.register(MainMovieHeaderView.register(), forHeaderFooterViewReuseIdentifier: MainMovieHeaderView.identifier)
     }
     
     func reloadTableView(){
@@ -38,7 +43,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HorizontalCollectionTableViewCell.identifier, for: indexPath) as? HorizontalCollectionTableViewCell else { return UITableViewCell() }
         
-        guard let data = viewModel.cellForRowAt(in: indexPath.row) else {
+        guard let data = viewModel.cellForRowAt(in: indexPath.section) else {
             return UITableViewCell()
         }
         let viewModel = CollectionViewModel(trendingCollData: data)
@@ -47,12 +52,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        return viewModel.getCellHeight()
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let movieId = cellDataSource[indexPath.row].id
-//        self.openDetails(movieId: movieId)
-//    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainMovieHeaderView.identifier) as! MainMovieHeaderView
+        headerView.title = viewModel.headerForSection(section)
+        return headerView
+    }
     
 }

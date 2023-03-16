@@ -13,6 +13,11 @@ extension UIView{
         self.clipsToBounds = true
     }
     
+    func makeCircleRound(){
+        self.layer.cornerRadius = self.frame.height/2
+        self.clipsToBounds = true
+    }
+    
     func addBorder(color: UIColor, width: CGFloat){
         self.layer.borderColor = color.cgColor
         self.layer.borderWidth = width

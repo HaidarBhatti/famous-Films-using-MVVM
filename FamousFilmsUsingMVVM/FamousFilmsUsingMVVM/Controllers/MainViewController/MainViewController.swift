@@ -18,11 +18,11 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         configureViews()
         bindViewModel()
-        viewModel.getTrendingData()
+        viewModel.getHomeScreenData()
     }
     
     func configureViews(){
-        title = "Home"
+        title = viewModel.title
         view.backgroundColor = .systemBackground
         setUpTableView()
     }

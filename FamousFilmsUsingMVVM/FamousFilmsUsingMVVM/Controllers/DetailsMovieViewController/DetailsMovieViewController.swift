@@ -34,7 +34,7 @@ class DetailsMovieViewController: UIViewController {
         
         movieImageView.sd_setImage(with: viewModel.movie.movieImageURL)
         lblMovieTitle.text = viewModel.movie.movieTitle
-        lblMovieDescription.text = viewModel.movie.movieReleaseDate
+        lblMovieDescription.text = viewModel.movie.overview
     }
 
 }
