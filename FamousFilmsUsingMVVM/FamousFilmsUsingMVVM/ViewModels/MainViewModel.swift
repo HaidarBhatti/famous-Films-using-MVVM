@@ -5,7 +5,7 @@
 //  Created by Haidar Bhatti on 07/03/2023.
 //
 
-import Foundation
+import UIKit
 
 struct HomeTableModel{
     var title: String
@@ -24,12 +24,24 @@ class MainViewModel{
 
     var tableData = [HomeTableModel]()
     
+    let group = DispatchGroup()
+    
+    public var title: String{
+        get{
+            return "Home"
+        }
+    }
+    
+    func getCellHeight() -> CGFloat{
+        return 300.0
+    }
+    
     func noOfSections() -> Int{
         return tableData.count
     }
     
     func numberOfRows(in section: Int) -> Int{
-        return tableData.count
+        return 1
     }
     
     func cellForRowAt(in section: Int) -> [MovieCellData]?{
@@ -39,62 +51,83 @@ class MainViewModel{
         return cellData
     }
     
-    func getHomeScreenData(){
-        let group = DispatchGroup()
+    func  headerForSection(_ section: Int) -> String?{
+        return tableData[section].title
+    }
+    
+    func getTrendingData(mediaType: MediaType = .movie, timeWindow: TimeWindow = .week){
         group.enter()
-        
-        if isLoadingHomeData.value ?? true{
-            group.leave()
-            return
-        }
-        isLoadingHomeData.value = true
-        APIServices.getTrendingMovies(mediaType: .all, timeWindow: .day) { [weak self] result in
+        APIServices.getTrendingMovies(mediaType: mediaType, timeWindow: timeWindow) { [weak self] result in
             switch result{
             case .success(let data):
                 self?.trendingDataSource = data
                 self?.mapTrendingCellData(onCompletion: { result in
-                    group.leave()
+                    self?.group.leave()
                 })
             case .failure(let error):
                 print("error: \(error)")
-                group.leave()
+                self?.group.leave()
             }
         }
-        
+    }
+    func getPopularData(){
         group.enter()
         APIServices.getPopularMovies(language: .en, page: 1) { [weak self] result in
             switch result{
             case .success(let data):
                 self?.popularDataSource = data
                 self?.mapPopularCellData(onCompletion: { result in
-                    group.leave()
+                    self?.group.leave()
                 })
             case .failure(let error):
                 print("error: \(error)")
-                group.leave()
+                self?.group.leave()
             }
         }
-        
-        group.wait()
-        print("done fetching the data")
-        self.isLoadingHomeData.value = false
     }
     
-    
-    func getTrendingData(){
-        getHomeScreenData()
+    func getHomeScreenData(){
+        if isLoadingHomeData.value ?? true{
+            group.leave()
+            return
+        }
+        isLoadingHomeData.value = true
+        getTrendingData()
+        group.wait()
+        getPopularData()
+        group.wait()
+        print("done fetching the data")
+        isLoadingHomeData.value = false
     }
     
     func mapTrendingCellData(onCompletion: @escaping (_ result: Bool) -> ()){
         let trendingData = self.trendingDataSource?.results.compactMap({ MovieCellData(movie: $0) })
         self.trendingCollData = trendingData
-        tableData.append(HomeTableModel(title: "Trending", collData: trendingData))
+        let trending = HomeTableModel(title: "Trending", collData: trendingData)
+        
+        if tableData.contains(where: { $0.title == "Trending" }){
+            if let index = tableData.firstIndex(where: { $0.title == "Trending" }){
+                tableData.insert(trending, at: index)
+            }
+        }
+        else{
+            tableData.append(trending)
+        }
         onCompletion(true)
     }
     func mapPopularCellData(onCompletion: @escaping (_ result: Bool) -> ()){
         let popularData = self.popularDataSource?.results.compactMap({ MovieCellData(movie: $0) })
         self.popularCollData = popularData
-        tableData.append(HomeTableModel(title: "Popular", collData: popularData))
+        let popular = HomeTableModel(title: "Popular", collData: popularData)
+        
+        if tableData.contains(where: { $0.title == "Popular" }){
+            if let index = tableData.firstIndex(where: { $0.title == "Popular" }){
+                tableData.insert(popular, at: index)
+            }
+        }
+        else{
+            tableData.append(popular)
+        }
         onCompletion(true)
     }
     
