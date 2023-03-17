@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,34 +11,57 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MainMovieHeaderView" customModule="FamousFilmsUsingMVVM" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bRr-6l-vYq">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kkh-gz-TrV">
-                            <rect key="frame" x="8" y="6.5" width="37" height="17"/>
+                            <rect key="frame" x="8" y="11.5" width="37" height="17"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uaS-tp-Ofv">
-                            <rect key="frame" x="391" y="4" width="15" height="22"/>
-                            <color key="tintColor" systemColor="labelColor"/>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal">
-                                <imageReference key="image" image="chevron.down" catalog="system" symbolScale="small"/>
-                            </state>
-                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAS-Wf-6SE" customClass="SJFluidSegmentedControl" customModule="SJFluidSegmentedControl">
+                            <rect key="frame" x="61" y="4" width="337" height="32"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                    <color key="value" name="selectedSegmentBackgroundColor"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectedSegmentTextColor">
+                                    <color key="value" name="lastColor"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="selectorViewColor">
+                                    <color key="value" name="selectedSegmentBackgroundColor"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="applyCornerRadiusToSelectorView" value="NO"/>
+                                <userDefinedRuntimeAttribute type="color" keyPath="gradientBounceColor">
+                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="shadowShowDuration">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="shadowHideDuration">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="shadowsEnabled" value="NO"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="uaS-tp-Ofv" secondAttribute="trailing" constant="8" id="0af-9v-Lgb"/>
-                        <constraint firstAttribute="height" constant="30" id="Bcn-v3-R79"/>
+                        <constraint firstAttribute="height" constant="40" id="Bcn-v3-R79"/>
+                        <constraint firstAttribute="bottom" secondItem="eAS-Wf-6SE" secondAttribute="bottom" constant="4" id="L0h-ze-Sud"/>
                         <constraint firstItem="Kkh-gz-TrV" firstAttribute="leading" secondItem="bRr-6l-vYq" secondAttribute="leading" constant="8" id="SR8-RL-ZXa"/>
-                        <constraint firstItem="uaS-tp-Ofv" firstAttribute="centerY" secondItem="bRr-6l-vYq" secondAttribute="centerY" id="ddb-7o-rVj"/>
+                        <constraint firstItem="eAS-Wf-6SE" firstAttribute="top" secondItem="bRr-6l-vYq" secondAttribute="top" constant="4" id="bnt-YT-Xil"/>
+                        <constraint firstItem="eAS-Wf-6SE" firstAttribute="leading" secondItem="Kkh-gz-TrV" secondAttribute="trailing" constant="16" id="boJ-f5-NDp"/>
                         <constraint firstItem="Kkh-gz-TrV" firstAttribute="centerY" secondItem="bRr-6l-vYq" secondAttribute="centerY" id="lvb-68-oiO"/>
+                        <constraint firstAttribute="trailing" secondItem="eAS-Wf-6SE" secondAttribute="trailing" constant="16" id="zfv-5u-xue"/>
                     </constraints>
                 </view>
             </subviews>
@@ -51,17 +74,19 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="btnDropDown" destination="uaS-tp-Ofv" id="yUw-Ip-nNa"/>
                 <outlet property="lblHeaderTitle" destination="Kkh-gz-TrV" id="qgA-1t-tIm"/>
+                <outlet property="segmentedBar" destination="eAS-Wf-6SE" id="GOn-8s-IQZ"/>
             </connections>
-            <point key="canvasLocation" x="311.59420289855075" y="-105.80357142857143"/>
+            <point key="canvasLocation" x="311.59420289855075" y="-109.15178571428571"/>
         </view>
     </objects>
     <resources>
-        <image name="chevron.down" catalog="system" width="128" height="72"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <namedColor name="lastColor">
+            <color red="0.18431372549019609" green="0.77254901960784317" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="selectedSegmentBackgroundColor">
+            <color red="0.019607843137254902" green="0.14901960784313725" blue="0.25098039215686274" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
