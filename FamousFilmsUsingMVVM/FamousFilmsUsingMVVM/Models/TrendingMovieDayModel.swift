@@ -1,17 +1,17 @@
 //
-//  TrendingMoviesModel.swift
+//  TrendingMovieDayModel.swift
 //  FamousFilmsUsingMVVM
 //
-//  Created by Haidar Bhatti on 07/03/2023.
+//  Created by Haidar Bhatti on 17/03/2023.
 //
 
 import Foundation
 
-struct TrendingMoviesModel: Codable {
+struct TrendingMovieDayModel: Codable {
     let page: Int
-    let results: [TrendingMovies]
+    let results: [MovieDayModel]
     let totalPages, totalResults: Int
-
+    
     enum CodingKeys: String, CodingKey {
         case page, results
         case totalPages = "total_pages"
@@ -20,7 +20,7 @@ struct TrendingMoviesModel: Codable {
 }
 
 // MARK: - Result
-struct TrendingMovies: Codable {
+struct MovieDayModel: Codable {
     let adult: Bool
     let backdropPath: String
     let id: Int
@@ -51,27 +51,4 @@ struct TrendingMovies: Codable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
-}
-
-enum MediaType: String, Codable {
-    case movie = "movie"
-    case tv = "tv"
-    case all = "all"
-    case person = "person"
-}
-
-enum OriginalLanguage: String, Codable {
-    case de = "de"
-    case en = "en"
-    case ja = "ja"
-    case ko = "ko"
-    case es = "es"
-    case fr = "fr"
-    case it = "it"
-    case nl = "nl"
-}
-
-enum TimeWindow: String, Codable{
-    case day = "day"
-    case week = "week"
 }

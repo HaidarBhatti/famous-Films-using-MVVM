@@ -10,6 +10,13 @@ import UIKit
 struct HomeTableModel{
     var title: String
     var collData: [MovieCellData]?
+    var filterTypes: [String]
+    var apiType: APIType
+}
+
+enum APIType{
+    case trending
+    case popular
 }
 
 class MainViewModel{
@@ -17,6 +24,7 @@ class MainViewModel{
     var isLoadingHomeData: Observable<Bool> = Observable(false)
     
     var trendingDataSource: TrendingMoviesModel?
+    var trendingDayDataSource: TrendingMovieDayModel?
     var popularDataSource: PopularMoviesModel?
 
     var trendingCollData: [MovieCellData]?
@@ -51,13 +59,13 @@ class MainViewModel{
         return cellData
     }
     
-    func  headerForSection(_ section: Int) -> String?{
-        return tableData[section].title
+    func headerForSection(_ section: Int) -> (String,[String])?{
+        return (tableData[section].title, tableData[section].filterTypes)
     }
     
-    func getTrendingData(mediaType: MediaType = .movie, timeWindow: TimeWindow = .week){
+    func getWeekTrendingData(){
         group.enter()
-        APIServices.getTrendingMovies(mediaType: mediaType, timeWindow: timeWindow) { [weak self] result in
+        APIServices.getWeekTrendingMovies { [weak self] result in
             switch result{
             case .success(let data):
                 self?.trendingDataSource = data
@@ -70,6 +78,24 @@ class MainViewModel{
             }
         }
     }
+    
+    func getDayTrendingData(){
+        group.enter()
+        APIServices.getDayTrendingMovies { [weak self] result in
+            switch result{
+            case .success(let data):
+                self?.trendingDayDataSource = data
+                self?.mapDayTrendingCellData(onCompletion: { result in
+                    self?.group.leave()
+                })
+            case .failure(let error):
+                print("error: \(error)")
+                self?.group.leave()
+            }
+        }
+    }
+    
+    
     func getPopularData(){
         group.enter()
         APIServices.getPopularMovies(language: .en, page: 1) { [weak self] result in
@@ -92,7 +118,7 @@ class MainViewModel{
             return
         }
         isLoadingHomeData.value = true
-        getTrendingData()
+        getDayTrendingData()
         group.wait()
         getPopularData()
         group.wait()
@@ -100,14 +126,47 @@ class MainViewModel{
         isLoadingHomeData.value = false
     }
     
+    func getPopularShowsOnTV(){
+        APIServices.getPopularShowsOnTV { [weak self] result in
+            switch result{
+            case .success(let data):
+                let shows = data.results
+                print("\(shows.count)")
+                
+//                self?.popularDataSource = data
+//                self?.mapPopularCellData(onCompletion: { result in
+//                    self?.group.leave()
+//                })
+            case .failure(let error):
+                print("error: \(error)")
+//                self?.group.leave()
+            }
+        }
+    }
+    
     func mapTrendingCellData(onCompletion: @escaping (_ result: Bool) -> ()){
         let trendingData = self.trendingDataSource?.results.compactMap({ MovieCellData(movie: $0) })
         self.trendingCollData = trendingData
-        let trending = HomeTableModel(title: "Trending", collData: trendingData)
+        let trending = HomeTableModel(title: "Trending", collData: trendingData, filterTypes: ["Today","This Week"], apiType: .trending)
         
         if tableData.contains(where: { $0.title == "Trending" }){
             if let index = tableData.firstIndex(where: { $0.title == "Trending" }){
-                tableData.insert(trending, at: index)
+                tableData[index] = trending
+            }
+        }
+        else{
+            tableData.append(trending)
+        }
+        onCompletion(true)
+    }
+    func mapDayTrendingCellData(onCompletion: @escaping (_ result: Bool) -> ()){
+        let trendingData = self.trendingDayDataSource?.results.compactMap({ MovieCellData(movie: $0) })
+        self.trendingCollData = trendingData
+        let trending = HomeTableModel(title: "Trending", collData: trendingData, filterTypes: ["Today","This Week"], apiType: .trending)
+        
+        if tableData.contains(where: { $0.title == "Trending" }){
+            if let index = tableData.firstIndex(where: { $0.title == "Trending" }){
+                tableData[index] = trending
             }
         }
         else{
@@ -116,13 +175,14 @@ class MainViewModel{
         onCompletion(true)
     }
     func mapPopularCellData(onCompletion: @escaping (_ result: Bool) -> ()){
+        let popularString = "What's Popular"
         let popularData = self.popularDataSource?.results.compactMap({ MovieCellData(movie: $0) })
         self.popularCollData = popularData
-        let popular = HomeTableModel(title: "Popular", collData: popularData)
-        
-        if tableData.contains(where: { $0.title == "Popular" }){
-            if let index = tableData.firstIndex(where: { $0.title == "Popular" }){
-                tableData.insert(popular, at: index)
+        let popular = HomeTableModel(title: popularString, collData: popularData, filterTypes: ["Streaming","On TV","In Theatres"], apiType: .popular)
+
+        if tableData.contains(where: { $0.title == popularString }){
+            if let index = tableData.firstIndex(where: { $0.title == popularString }){
+                tableData[index] = popular
             }
         }
         else{
@@ -139,5 +199,33 @@ class MainViewModel{
         guard let movie = trendingCollData?.first(where: { $0.id == id }) else { return nil }
         return movie
     }
+    
+}
+
+extension MainViewModel: HeaderViewModelDelegate{
+    func didTapButton(with action: String) {
+        print(action)
+        
+        for headerData in tableData{
+            if headerData.filterTypes.contains(action){
+                if headerData.apiType == .trending{
+                    isLoadingHomeData.value = true
+                    if action == "This Week"{
+                        getWeekTrendingData()
+                    }
+                    else if action == "Today"{
+                        getDayTrendingData()
+                    }
+                    group.wait()
+                    isLoadingHomeData.value = false
+                }
+                else if headerData.apiType == .popular{
+                    
+                }
+            }
+        }
+        
+    }
+    
     
 }
