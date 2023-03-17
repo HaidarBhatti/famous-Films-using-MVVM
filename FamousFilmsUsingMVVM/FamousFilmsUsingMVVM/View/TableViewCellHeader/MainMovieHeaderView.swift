@@ -6,15 +6,27 @@
 //
 
 import UIKit
+import SJFluidSegmentedControl
 
 class MainMovieHeaderView: UITableViewHeaderFooterView {
 
     @IBOutlet weak var lblHeaderTitle: UILabel!
-    @IBOutlet weak var btnDropDown: UIButton!
-
-    var title: String?{
-        didSet{
-            populateValues()
+    @IBOutlet weak var segmentedBar: SJFluidSegmentedControl!
+    
+    var viewModel: MainMovieHeaderViewModel?
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        segmentedBar.addBorder(color: .black, width: 1)
+    }
+    
+    func configure(with viewModel: MainMovieHeaderViewModel){
+        self.viewModel = viewModel
+        self.populateValues()
+        segmentedBar.dataSource = self
+        segmentedBar.delegate = self
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) { [weak self] in
+            self?.segmentedBar.reloadData()
         }
     }
     
@@ -29,7 +41,23 @@ class MainMovieHeaderView: UITableViewHeaderFooterView {
     }
     
     func populateValues(){
-        lblHeaderTitle.text = title
+        lblHeaderTitle.text = viewModel?.title
     }
 
+}
+
+extension MainMovieHeaderView: SJFluidSegmentedControlDataSource, SJFluidSegmentedControlDelegate{
+    func numberOfSegmentsInSegmentedControl(_ segmentedControl: SJFluidSegmentedControl) -> Int {
+        return viewModel?.numberOfSegments() ?? 0
+    }
+    
+    func segmentedControl(_ segmentedControl: SJFluidSegmentedControl, titleForSegmentAtIndex index: Int) -> String? {
+        return viewModel?.titleForSegmentAt(index: index)
+    }
+        
+    func segmentedControl(_ segmentedControl: SJFluidSegmentedControl, didChangeFromSegmentAtIndex fromIndex: Int, toSegmentAtIndex toIndex:Int){
+        let action = viewModel?.titleForSegmentAt(index: toIndex) ?? ""
+        print("\(action)")
+        viewModel?.delegate?.didTapButton(with: action)
+    }
 }
