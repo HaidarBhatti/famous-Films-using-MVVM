@@ -57,7 +57,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: MainMovieHeaderView.identifier) as! MainMovieHeaderView
-        headerView.title = viewModel.headerForSection(section)
+        guard let headerData = viewModel.headerForSection(section) else { return nil }
+        let headerViewModel = MainMovieHeaderViewModel(headerData: headerData.1, title: headerData.0)
+        headerViewModel.delegate = viewModel as! HeaderViewModelDelegate
+        headerView.configure(with: headerViewModel)
         return headerView
     }
     

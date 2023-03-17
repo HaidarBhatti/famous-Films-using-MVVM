@@ -37,6 +37,7 @@ class MainViewController: UIViewController {
                 else{
                     self.activityIndicator.stopAnimating()
                     self.reloadTableView()
+                    self.viewModel.isLoadingHomeData.value = nil
                 }
             }
         }
