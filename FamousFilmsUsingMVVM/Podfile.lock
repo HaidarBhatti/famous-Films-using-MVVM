@@ -1,0 +1,16 @@
+PODS:
+  - SJFluidSegmentedControl (1.1.2)
+
+DEPENDENCIES:
+  - SJFluidSegmentedControl
+
+SPEC REPOS:
+  trunk:
+    - SJFluidSegmentedControl
+
+SPEC CHECKSUMS:
+  SJFluidSegmentedControl: efd26ea5f0832c715e2750314a2dc0cc81e39ae5
+
+PODFILE CHECKSUM: 8a23948a9b997ecf5a6fcb6797e580866a494aa2
+
+COCOAPODS: 1.11.3
