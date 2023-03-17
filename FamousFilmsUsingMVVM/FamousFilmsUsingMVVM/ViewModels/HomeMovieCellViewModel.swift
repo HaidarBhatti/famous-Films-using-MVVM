@@ -19,8 +19,17 @@ class MovieCellData{
     
     init(movie: TrendingMovies){
         id = movie.id
-        movieTitle = movie.name ?? movie.title ?? ""
-        movieReleaseDate = movie.releaseDate ?? movie.firstAirDate ?? ""
+        movieTitle = movie.title
+        movieReleaseDate = movie.releaseDate
+        voteAverage = movie.voteAverage
+        overview = movie.overview
+        movieImageURL = makeImageURL(imageLink: movie.posterPath)
+    }
+    
+    init(movie: MovieDayModel){
+        id = movie.id
+        movieTitle = movie.title
+        movieReleaseDate = movie.releaseDate
         voteAverage = movie.voteAverage
         overview = movie.overview
         movieImageURL = makeImageURL(imageLink: movie.posterPath)
