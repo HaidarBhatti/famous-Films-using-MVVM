@@ -27,6 +27,7 @@ class MainMovieHeaderView: UITableViewHeaderFooterView {
         segmentedBar.delegate = self
         DispatchQueue.main.asyncAfter(deadline: .now()+0.1) { [weak self] in
             self?.segmentedBar.reloadData()
+            self?.segmentedBar.currentSegment = viewModel.selectedSegmentIndex()
         }
     }
     
@@ -41,7 +42,7 @@ class MainMovieHeaderView: UITableViewHeaderFooterView {
     }
     
     func populateValues(){
-        lblHeaderTitle.text = viewModel?.title
+        lblHeaderTitle.text = viewModel?.headerData.title
     }
 
 }

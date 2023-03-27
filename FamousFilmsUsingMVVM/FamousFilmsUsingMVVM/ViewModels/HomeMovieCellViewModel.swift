@@ -16,6 +16,7 @@ class MovieCellData{
     var voteAverage: Double
     var movieImageURL: URL?
     var overview: String
+    var movieBackdropPathImageURL: URL?
     
     init(movie: TrendingMovies){
         id = movie.id
@@ -24,15 +25,17 @@ class MovieCellData{
         voteAverage = movie.voteAverage
         overview = movie.overview
         movieImageURL = makeImageURL(imageLink: movie.posterPath)
+        movieBackdropPathImageURL = makeImageURL(imageLink: movie.backdropPath)
     }
     
-    init(movie: MovieDayModel){
-        id = movie.id
-        movieTitle = movie.title
-        movieReleaseDate = movie.releaseDate
-        voteAverage = movie.voteAverage
-        overview = movie.overview
-        movieImageURL = makeImageURL(imageLink: movie.posterPath)
+    init(movie: MovieForDay){
+        id = movie.id!
+        movieTitle = movie.title!
+        movieReleaseDate = movie.releaseDate!
+        voteAverage = movie.voteAverage!
+        overview = movie.overview!
+        movieImageURL = makeImageURL(imageLink: movie.posterPath!)
+        movieBackdropPathImageURL = makeImageURL(imageLink: movie.backdropPath!)
     }
     
     init(movie: PopularMovies){
@@ -42,6 +45,7 @@ class MovieCellData{
         voteAverage = movie.voteAverage
         overview = movie.overview
         movieImageURL = makeImageURL(imageLink: movie.posterPath)
+        movieBackdropPathImageURL = makeImageURL(imageLink: movie.backdropPath)
     }
     
     func makeImageURL(imageLink: String) -> URL?{

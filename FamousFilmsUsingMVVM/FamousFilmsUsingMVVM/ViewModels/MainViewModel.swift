@@ -11,7 +11,14 @@ struct HomeTableModel{
     var title: String
     var collData: [MovieCellData]?
     var filterTypes: [String]
+    var selectedFilter: Int
     var apiType: APIType
+}
+
+struct HeaderModel{
+    var title: String
+    var filterTypes: [String]
+    var selectedFilter: Int
 }
 
 enum APIType{
@@ -23,8 +30,10 @@ class MainViewModel{
     
     var isLoadingHomeData: Observable<Bool> = Observable(false)
     
+    var isLoadingPopularMoviesData: Observable<Bool> = Observable(false)    
+    
     var trendingDataSource: TrendingMoviesModel?
-    var trendingDayDataSource: TrendingMovieDayModel?
+    var trendingDayDataSource: MovieModelForDays?
     var popularDataSource: PopularMoviesModel?
 
     var trendingCollData: [MovieCellData]?
@@ -33,6 +42,9 @@ class MainViewModel{
     var tableData = [HomeTableModel]()
     
     let group = DispatchGroup()
+    
+    var segementTapped = false
+    var sectionOfCollectionView = 0
     
     public var title: String{
         get{
@@ -59,8 +71,8 @@ class MainViewModel{
         return cellData
     }
     
-    func headerForSection(_ section: Int) -> (String,[String])?{
-        return (tableData[section].title, tableData[section].filterTypes)
+    func headerForSection(_ section: Int) -> HeaderModel?{
+        return HeaderModel(title: tableData[section].title, filterTypes: tableData[section].filterTypes, selectedFilter: tableData[section].selectedFilter)
     }
     
     func getWeekTrendingData(){
@@ -147,7 +159,7 @@ class MainViewModel{
     func mapTrendingCellData(onCompletion: @escaping (_ result: Bool) -> ()){
         let trendingData = self.trendingDataSource?.results.compactMap({ MovieCellData(movie: $0) })
         self.trendingCollData = trendingData
-        let trending = HomeTableModel(title: "Trending", collData: trendingData, filterTypes: ["Today","This Week"], apiType: .trending)
+        let trending = HomeTableModel(title: "Trending", collData: trendingData, filterTypes: ["Today","This Week"], selectedFilter: 1, apiType: .trending)
         
         if tableData.contains(where: { $0.title == "Trending" }){
             if let index = tableData.firstIndex(where: { $0.title == "Trending" }){
@@ -160,9 +172,9 @@ class MainViewModel{
         onCompletion(true)
     }
     func mapDayTrendingCellData(onCompletion: @escaping (_ result: Bool) -> ()){
-        let trendingData = self.trendingDayDataSource?.results.compactMap({ MovieCellData(movie: $0) })
+        let trendingData = self.trendingDayDataSource?.results?.compactMap({ MovieCellData(movie: $0) })
         self.trendingCollData = trendingData
-        let trending = HomeTableModel(title: "Trending", collData: trendingData, filterTypes: ["Today","This Week"], apiType: .trending)
+        let trending = HomeTableModel(title: "Trending", collData: trendingData, filterTypes: ["Today","This Week"], selectedFilter: 0, apiType: .trending)
         
         if tableData.contains(where: { $0.title == "Trending" }){
             if let index = tableData.firstIndex(where: { $0.title == "Trending" }){
@@ -178,7 +190,7 @@ class MainViewModel{
         let popularString = "What's Popular"
         let popularData = self.popularDataSource?.results.compactMap({ MovieCellData(movie: $0) })
         self.popularCollData = popularData
-        let popular = HomeTableModel(title: popularString, collData: popularData, filterTypes: ["Streaming","On TV","In Theatres"], apiType: .popular)
+        let popular = HomeTableModel(title: popularString, collData: popularData, filterTypes: ["Streaming","On TV","In Theatres"], selectedFilter: 0, apiType: .popular)
 
         if tableData.contains(where: { $0.title == popularString }){
             if let index = tableData.firstIndex(where: { $0.title == popularString }){
@@ -200,12 +212,17 @@ class MainViewModel{
         return movie
     }
     
+    
+    func handleTheTapOnSegment(){
+        segementTapped = false
+        sectionOfCollectionView = 0
+    }
+    
 }
 
 extension MainViewModel: HeaderViewModelDelegate{
     func didTapButton(with action: String) {
         print(action)
-        
         for headerData in tableData{
             if headerData.filterTypes.contains(action){
                 if headerData.apiType == .trending{
@@ -217,6 +234,8 @@ extension MainViewModel: HeaderViewModelDelegate{
                         getDayTrendingData()
                     }
                     group.wait()
+                    sectionOfCollectionView = 0
+                    segementTapped = true
                     isLoadingHomeData.value = false
                 }
                 else if headerData.apiType == .popular{
@@ -224,8 +243,5 @@ extension MainViewModel: HeaderViewModelDelegate{
                 }
             }
         }
-        
     }
-    
-    
 }

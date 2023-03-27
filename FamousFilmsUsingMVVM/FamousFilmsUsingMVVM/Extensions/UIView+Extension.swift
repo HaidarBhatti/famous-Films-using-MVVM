@@ -22,4 +22,9 @@ extension UIView{
         self.layer.borderColor = color.cgColor
         self.layer.borderWidth = width
     }
+    
+    func roundForRatios(){
+        self.layer.cornerRadius = self.frame.height/10
+        self.clipsToBounds = true
+    }
 }

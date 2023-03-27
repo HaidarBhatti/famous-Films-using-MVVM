@@ -36,8 +36,18 @@ class MainViewController: UIViewController {
                 }
                 else{
                     self.activityIndicator.stopAnimating()
-                    self.reloadTableView()
-                    self.viewModel.isLoadingHomeData.value = nil
+                    if self.viewModel.segementTapped{
+                        let indexPath = IndexPath(item: 0, section: self.viewModel.sectionOfCollectionView)
+                        self.tableView.reloadRows(at: [indexPath], with: .fade)
+                        self.viewModel.isLoadingHomeData.value = nil
+//                        self.viewModel.handleTheTapOnSegment()
+                        return
+                    }
+                    else {
+                        self.reloadTableView()
+                        self.viewModel.isLoadingHomeData.value = nil
+                    }
+                    
                 }
             }
         }

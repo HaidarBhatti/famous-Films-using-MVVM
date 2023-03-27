@@ -33,7 +33,7 @@ class HorizontalCollectionTableViewCell: UITableViewCell {
     
     func openDetails(movieId: Int){
         guard let movie = viewModel?.retrieveMovie(with: movieId) else { return }
-        let viewModel = DetailsMovieViewModel(movie: movie)
+        let viewModel = DetailsMovieViewModel(movieID: movie.id)
         let detailsViewController = DetailsMovieViewController(viewModel: viewModel)
         DispatchQueue.main.async {
             UIApplication.shared.keyWindow!.rootViewController!.topMostViewController().navigationController?.pushViewController(detailsViewController, animated: true)
@@ -78,59 +78,5 @@ extension HorizontalCollectionTableViewCell: UICollectionViewDataSource, UIColle
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let data = viewModel?.trendingCollData else { return }
         openDetails(movieId: data[indexPath.item].id)
-    }
-}
-
-
-extension UIWindow {
-    func topViewController() -> UIViewController? {
-        var top = self.rootViewController
-        while true {
-            if let presented = top?.presentedViewController {
-                top = presented
-            } else if let nav = top as? UINavigationController {
-                top = nav.visibleViewController
-            } else if let tab = top as? UITabBarController {
-                top = tab.selectedViewController
-            } else {
-                break
-            }
-        }
-        return top
-    }
-}
-
-extension UIViewController {
-    @objc func topMostViewController() -> UIViewController {
-        // Handling Modal views
-        if let presentedViewController = self.presentedViewController {
-            return presentedViewController.topMostViewController()
-        }
-        // Handling UIViewController's added as subviews to some other views.
-        else {
-            for view in self.view.subviews
-            {
-                // Key property which most of us are unaware of / rarely use.
-                if let subViewController = view.next {
-                    if subViewController is UIViewController {
-                        let viewController = subViewController as! UIViewController
-                        return viewController.topMostViewController()
-                    }
-                }
-            }
-            return self
-        }
-    }
-}
-
-extension UITabBarController {
-    override func topMostViewController() -> UIViewController {
-        return self.selectedViewController!.topMostViewController()
-    }
-}
-
-extension UINavigationController {
-    override func topMostViewController() -> UIViewController {
-        return self.visibleViewController!.topMostViewController()
     }
 }

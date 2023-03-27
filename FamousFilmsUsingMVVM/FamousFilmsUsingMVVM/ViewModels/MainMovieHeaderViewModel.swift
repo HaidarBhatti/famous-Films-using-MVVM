@@ -8,23 +8,23 @@
 import Foundation
 
 class MainMovieHeaderViewModel{
-    var headerData = [String]()
-    var title: String
-    
+    var headerData: HeaderModel
     var mainViewModel = MainViewModel()
+    var delegate: HeaderViewModelDelegate?
     
-    weak var delegate: HeaderViewModelDelegate?
-    
-    init(headerData: [String], title: String){
+    init(headerData: HeaderModel){
         self.headerData = headerData
-        self.title = title
     }
     
     func numberOfSegments() -> Int{
-        headerData.count
+        headerData.filterTypes.count
     }
     
     func titleForSegmentAt(index: Int) -> String{
-        headerData[index]
+        headerData.filterTypes[index]
+    }
+    
+    func selectedSegmentIndex() -> Int{
+        return headerData.selectedFilter
     }
 }

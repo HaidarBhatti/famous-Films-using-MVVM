@@ -12,4 +12,5 @@ enum DateFormat: String{
     case ddMMyyyy = "dd MM yyyy"
     case ddMMMyyyy = "dd MMM yyyy"
     case yDashMDashD = "yyyy-MM-dd"
+    case dslashmslashy = "dd/MM/yyyy"
 }

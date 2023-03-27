@@ -15,7 +15,7 @@ enum NetworkError: Error{
 
 class APIServices{
     
-    static func getDayTrendingMovies(mediaType: MediaType = .movie, timeWindow: TimeWindow = .day, completionHandler: @escaping (_ result: Result<TrendingMovieDayModel,NetworkError>) -> Void ){
+    static func getDayTrendingMovies(mediaType: MediaType = .movie, timeWindow: TimeWindow = .day, completionHandler: @escaping (_ result: Result<MovieModelForDays,NetworkError>) -> Void ){
         
         let instance = NetworkConstant.shared
         let stringURL = instance.serverAddress+instance.trending+"\(mediaType.rawValue)/"+"\(timeWindow.rawValue)?\(instance.apiStringWithKey)"
@@ -26,7 +26,7 @@ class APIServices{
         }
         
         URLSession.shared.dataTask(with: url) { dataResponse, urlResponse, error in
-            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(TrendingMovieDayModel.self, from: data){
+            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(MovieModelForDays.self, from: data){
                 completionHandler(.success(resultData))
             }
             else{
@@ -114,4 +114,24 @@ class APIServices{
         }.resume()
     }
         
+}
+
+//MARK: - This extension will get the data for the DetailsMovieViewController
+extension APIServices{
+    static func getMovieDetails(movieID: Int, completionHandler: @escaping (_ result: Result<MovieDetailsModel, NetworkError>) -> Void ){
+        let instance = NetworkConstant.shared
+        let stringURL = instance.serverAddress+instance.movie+"/\(movieID)?\(instance.apiStringWithKey)"
+        guard let url = URL(string: stringURL) else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        URLSession.shared.dataTask(with: url) { dataResponse, urlResponse, error in
+            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(MovieDetailsModel.self, from: data){
+                completionHandler(.success(resultData))
+            }
+            else{
+                completionHandler(.failure(.canNotParseData))
+            }
+        }.resume()
+    }
 }
