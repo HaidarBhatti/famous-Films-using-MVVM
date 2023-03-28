@@ -8,7 +8,6 @@
 import Foundation
 
 struct MovieDetailsModel: Codable {
-    
     var adult               : Bool?                  = nil
     var backdropPath        : String?                = nil
     var belongsToCollection : BelongsToCollection?   = BelongsToCollection()
@@ -34,6 +33,7 @@ struct MovieDetailsModel: Codable {
     var video               : Bool?                  = nil
     var voteAverage         : Double?                = nil
     var voteCount           : Int?                   = nil
+    var credits             : Credits?               = Credits()
     
     var backdropURL         : URL?                = nil
     var posterURL           : URL?                = nil
@@ -64,6 +64,7 @@ struct MovieDetailsModel: Codable {
         case video               = "video"
         case voteAverage         = "vote_average"
         case voteCount           = "vote_count"
+        case credits             = "credits"
     }
     
     init(from decoder: Decoder) throws {
@@ -93,6 +94,7 @@ struct MovieDetailsModel: Codable {
         video               = try values.decodeIfPresent(Bool.self                  , forKey: .video               )
         voteAverage         = try values.decodeIfPresent(Double.self                , forKey: .voteAverage         )
         voteCount           = try values.decodeIfPresent(Int.self                   , forKey: .voteCount           )
+        credits             = try values.decodeIfPresent(Credits.self               , forKey: .credits             )
         
         backdropURL         = makeImageURL(imageLink: backdropPath!)
         posterURL           = makeImageURL(imageLink: posterPath!)
@@ -100,10 +102,10 @@ struct MovieDetailsModel: Codable {
     
     init() { }
     
-    func makeImageURL(imageLink: String) -> URL?{
-        return URL(string: "\(NetworkConstant.shared.imageServerAddress)\(imageLink)")
-    }
-    
+}
+
+func makeImageURL(imageLink: String) -> URL?{
+    return URL(string: "\(NetworkConstant.shared.imageServerAddress)\(imageLink)")
 }
 
 struct BelongsToCollection: Codable {
@@ -208,7 +210,6 @@ struct ProductionCountries: Codable, Equatable {
 }
 
 struct SpokenLanguages: Codable {
-
   var englishName : String? = nil
   var iso6391     : String? = nil
   var name        : String? = nil
@@ -227,5 +228,146 @@ struct SpokenLanguages: Codable {
   }
 
   init() { }
+
+}
+
+struct Cast: Codable {
+    
+    var adult              : Bool?   = nil
+    var gender             : Int?    = nil
+    var id                 : Int?    = nil
+    var knownForDepartment : String? = nil
+    var name               : String? = nil
+    var originalName       : String? = nil
+    var popularity         : Double? = nil
+    var profilePath        : String? = nil
+    var castId             : Int?    = nil
+    var character          : String? = nil
+    var creditId           : String? = nil
+    var order              : Int?    = nil
+    var profilePathURL     : URL?    = nil
+    
+    enum CodingKeys: String, CodingKey {
+        
+        case adult              = "adult"
+        case gender             = "gender"
+        case id                 = "id"
+        case knownForDepartment = "known_for_department"
+        case name               = "name"
+        case originalName       = "original_name"
+        case popularity         = "popularity"
+        case profilePath        = "profile_path"
+        case castId             = "cast_id"
+        case character          = "character"
+        case creditId           = "credit_id"
+        case order              = "order"
+        
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        adult              = try values.decodeIfPresent(Bool.self   , forKey: .adult              )
+        gender             = try values.decodeIfPresent(Int.self    , forKey: .gender             )
+        id                 = try values.decodeIfPresent(Int.self    , forKey: .id                 )
+        knownForDepartment = try values.decodeIfPresent(String.self , forKey: .knownForDepartment )
+        name               = try values.decodeIfPresent(String.self , forKey: .name               )
+        originalName       = try values.decodeIfPresent(String.self , forKey: .originalName       )
+        popularity         = try values.decodeIfPresent(Double.self , forKey: .popularity         )
+        profilePath        = try values.decodeIfPresent(String.self , forKey: .profilePath        )
+        castId             = try values.decodeIfPresent(Int.self    , forKey: .castId             )
+        character          = try values.decodeIfPresent(String.self , forKey: .character          )
+        creditId           = try values.decodeIfPresent(String.self , forKey: .creditId           )
+        order              = try values.decodeIfPresent(Int.self    , forKey: .order              )
+        
+        if let profilePath = profilePath{
+            profilePathURL      = makeImageURL(imageLink: profilePath)
+        }
+        else{
+            profilePathURL      = nil
+        }
+    }
+    
+    init() {
+        
+    }
+    
+}
+struct Crew: Codable {
+
+  var adult              : Bool?   = nil
+  var gender             : Int?    = nil
+  var id                 : Int?    = nil
+  var knownForDepartment : String? = nil
+  var name               : String? = nil
+  var originalName       : String? = nil
+  var popularity         : Double? = nil
+  var profilePath        : String? = nil
+  var creditId           : String? = nil
+  var department         : String? = nil
+  var job                : String? = nil
+
+  enum CodingKeys: String, CodingKey {
+
+    case adult              = "adult"
+    case gender             = "gender"
+    case id                 = "id"
+    case knownForDepartment = "known_for_department"
+    case name               = "name"
+    case originalName       = "original_name"
+    case popularity         = "popularity"
+    case profilePath        = "profile_path"
+    case creditId           = "credit_id"
+    case department         = "department"
+    case job                = "job"
+  
+  }
+
+  init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+
+    adult              = try values.decodeIfPresent(Bool.self   , forKey: .adult              )
+    gender             = try values.decodeIfPresent(Int.self    , forKey: .gender             )
+    id                 = try values.decodeIfPresent(Int.self    , forKey: .id                 )
+    knownForDepartment = try values.decodeIfPresent(String.self , forKey: .knownForDepartment )
+    name               = try values.decodeIfPresent(String.self , forKey: .name               )
+    originalName       = try values.decodeIfPresent(String.self , forKey: .originalName       )
+    popularity         = try values.decodeIfPresent(Double.self , forKey: .popularity         )
+    profilePath        = try values.decodeIfPresent(String.self , forKey: .profilePath        )
+    creditId           = try values.decodeIfPresent(String.self , forKey: .creditId           )
+    department         = try values.decodeIfPresent(String.self , forKey: .department         )
+    job                = try values.decodeIfPresent(String.self , forKey: .job                )
+ 
+  }
+
+  init() {
+
+  }
+
+}
+
+struct Credits: Codable {
+
+  var cast : [Cast]? = []
+  var crew : [Crew]? = []
+
+  enum CodingKeys: String, CodingKey {
+
+    case cast = "cast"
+    case crew = "crew"
+  
+  }
+
+  init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+
+    cast = try values.decodeIfPresent([Cast].self , forKey: .cast )
+    crew = try values.decodeIfPresent([Crew].self , forKey: .crew )
+ 
+  }
+
+  init() {
+
+  }
 
 }

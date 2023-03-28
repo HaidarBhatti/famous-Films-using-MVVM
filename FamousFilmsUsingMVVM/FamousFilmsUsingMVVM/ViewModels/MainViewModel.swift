@@ -34,10 +34,13 @@ class MainViewModel{
     
     var trendingDataSource: TrendingMoviesModel?
     var trendingDayDataSource: MovieModelForDays?
-    var popularDataSource: PopularMoviesModel?
+    var trendingWeekDataSource: TrendingWeekMoviesModel?
+    var popularDataSource: PopularStreamingMoviesModel?
+    var popularShowsOnTV: PopularShowsOnTVModel?
 
     var trendingCollData: [MovieCellData]?
     var popularCollData: [MovieCellData]?
+    var popularTVCollData: [Shows]?
 
     var tableData = [HomeTableModel]()
     
@@ -80,7 +83,7 @@ class MainViewModel{
         APIServices.getWeekTrendingMovies { [weak self] result in
             switch result{
             case .success(let data):
-                self?.trendingDataSource = data
+                self?.trendingWeekDataSource = data
                 self?.mapTrendingCellData(onCompletion: { result in
                     self?.group.leave()
                 })
@@ -139,25 +142,25 @@ class MainViewModel{
     }
     
     func getPopularShowsOnTV(){
+        group.enter()
         APIServices.getPopularShowsOnTV { [weak self] result in
             switch result{
             case .success(let data):
                 let shows = data.results
-                print("\(shows.count)")
-                
-//                self?.popularDataSource = data
-//                self?.mapPopularCellData(onCompletion: { result in
-//                    self?.group.leave()
-//                })
+                print("\(shows!.count)")
+                self?.popularShowsOnTV = data
+                self?.mapPopularShowsOnTVData(onCompletion: { result in
+                    self?.group.leave()
+                })
             case .failure(let error):
                 print("error: \(error)")
-//                self?.group.leave()
+                self?.group.leave()
             }
         }
     }
     
     func mapTrendingCellData(onCompletion: @escaping (_ result: Bool) -> ()){
-        let trendingData = self.trendingDataSource?.results.compactMap({ MovieCellData(movie: $0) })
+        let trendingData = self.trendingWeekDataSource?.results?.compactMap({ MovieCellData(movie: $0) })
         self.trendingCollData = trendingData
         let trending = HomeTableModel(title: "Trending", collData: trendingData, filterTypes: ["Today","This Week"], selectedFilter: 1, apiType: .trending)
         
@@ -188,7 +191,23 @@ class MainViewModel{
     }
     func mapPopularCellData(onCompletion: @escaping (_ result: Bool) -> ()){
         let popularString = "What's Popular"
-        let popularData = self.popularDataSource?.results.compactMap({ MovieCellData(movie: $0) })
+        let popularData = self.popularDataSource?.results?.compactMap({ MovieCellData(movie: $0) })
+        self.popularCollData = popularData
+        let popular = HomeTableModel(title: popularString, collData: popularData, filterTypes: ["Streaming","On TV","In Theatres"], selectedFilter: 0, apiType: .popular)
+
+        if tableData.contains(where: { $0.title == popularString }){
+            if let index = tableData.firstIndex(where: { $0.title == popularString }){
+                tableData[index] = popular
+            }
+        }
+        else{
+            tableData.append(popular)
+        }
+        onCompletion(true)
+    }
+    func mapPopularShowsOnTVData(onCompletion: @escaping (_ result: Bool) -> ()){
+        let popularString = "What's Popular"
+        let popularData = self.popularShowsOnTV?.results?.compactMap({ MovieCellData(shows: $0) })
         self.popularCollData = popularData
         let popular = HomeTableModel(title: popularString, collData: popularData, filterTypes: ["Streaming","On TV","In Theatres"], selectedFilter: 0, apiType: .popular)
 
@@ -239,7 +258,20 @@ extension MainViewModel: HeaderViewModelDelegate{
                     isLoadingHomeData.value = false
                 }
                 else if headerData.apiType == .popular{
-                    
+                    isLoadingHomeData.value = true
+                    if action == "Streaming"{
+                        getPopularData()
+                    }
+                    else if action == "On TV"{
+                        getPopularShowsOnTV()
+                    }
+                    else if action == "In Theatres"{
+                        getPopularData()
+                    }
+                    group.wait()
+                    sectionOfCollectionView = 1
+                    segementTapped = true
+                    isLoadingHomeData.value = false
                 }
             }
         }

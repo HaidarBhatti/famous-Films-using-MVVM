@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		04EE708809AEFB01F50DD54E /* Pods_FamousFilmsUsingMVVM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB442B388AA9E9B8CF9D2E37 /* Pods_FamousFilmsUsingMVVM.framework */; };
+		DC6B245F29D3363C002E9629 /* CrewAndCastCollViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6B245D29D3363C002E9629 /* CrewAndCastCollViewCell.swift */; };
+		DC6B246029D3363C002E9629 /* CrewAndCastCollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC6B245E29D3363C002E9629 /* CrewAndCastCollViewCell.xib */; };
+		DC6B246229D35974002E9629 /* StringsForApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6B246129D35974002E9629 /* StringsForApp.swift */; };
 		DC8B7D2B29BA0694005D848E /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B7D2A29BA0694005D848E /* CollectionViewModel.swift */; };
 		DCC4E8E729D16D130047153E /* Window+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC4E8E629D16D130047153E /* Window+Extension.swift */; };
 		DCC4E8E929D178C00047153E /* MovieDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC4E8E829D178C00047153E /* MovieDetailsModel.swift */; };
@@ -47,6 +50,9 @@
 
 /* Begin PBXFileReference section */
 		3ECA69E86C345F3FC1529ED2 /* Pods-FamousFilmsUsingMVVM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FamousFilmsUsingMVVM.release.xcconfig"; path = "Target Support Files/Pods-FamousFilmsUsingMVVM/Pods-FamousFilmsUsingMVVM.release.xcconfig"; sourceTree = "<group>"; };
+		DC6B245D29D3363C002E9629 /* CrewAndCastCollViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewAndCastCollViewCell.swift; sourceTree = "<group>"; };
+		DC6B245E29D3363C002E9629 /* CrewAndCastCollViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CrewAndCastCollViewCell.xib; sourceTree = "<group>"; };
+		DC6B246129D35974002E9629 /* StringsForApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsForApp.swift; sourceTree = "<group>"; };
 		DC8B7D2A29BA0694005D848E /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		DCC4E8E629D16D130047153E /* Window+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Window+Extension.swift"; sourceTree = "<group>"; };
 		DCC4E8E829D178C00047153E /* MovieDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsModel.swift; sourceTree = "<group>"; };
@@ -115,6 +121,15 @@
 				3ECA69E86C345F3FC1529ED2 /* Pods-FamousFilmsUsingMVVM.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DC6B245C29D3360F002E9629 /* CrewAndCastCollCell */ = {
+			isa = PBXGroup;
+			children = (
+				DC6B245D29D3363C002E9629 /* CrewAndCastCollViewCell.swift */,
+				DC6B245E29D3363C002E9629 /* CrewAndCastCollViewCell.xib */,
+			);
+			path = CrewAndCastCollCell;
 			sourceTree = "<group>";
 		};
 		DCC6D9F529C1FA1B009DD068 /* TableViewCellHeader */ = {
@@ -236,6 +251,7 @@
 		DCF258A529B721BD00603658 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DC6B245C29D3360F002E9629 /* CrewAndCastCollCell */,
 				DCC6D9F529C1FA1B009DD068 /* TableViewCellHeader */,
 				DCF258D729B8AC0E00603658 /* HorizontalCollectionTableViewCell */,
 				DCF258CF29B8980900603658 /* MainMovieCollectionCell */,
@@ -258,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				DCF258B629B74F1E00603658 /* Observable.swift */,
+				DC6B246129D35974002E9629 /* StringsForApp.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -355,6 +372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC6B246029D3363C002E9629 /* CrewAndCastCollViewCell.xib in Resources */,
 				DCF2589729B720A400603658 /* LaunchScreen.storyboard in Resources */,
 				DCF2589429B720A400603658 /* Assets.xcassets in Resources */,
 				DCC6D9F929C22D0C009DD068 /* MainMovieHeaderView.xib in Resources */,
@@ -430,8 +448,10 @@
 				DCF258AE29B72A1000603658 /* MainViewController+TableView.swift in Sources */,
 				DCC6DA1029C4E045009DD068 /* MainMovieHeaderViewModel.swift in Sources */,
 				DCC4E8E929D178C00047153E /* MovieDetailsModel.swift in Sources */,
+				DC6B245F29D3363C002E9629 /* CrewAndCastCollViewCell.swift in Sources */,
 				DCC6D9FB29C2EC15009DD068 /* String+Extension.swift in Sources */,
 				DCC6DA1229C4E06A009DD068 /* Protocols.swift in Sources */,
+				DC6B246229D35974002E9629 /* StringsForApp.swift in Sources */,
 				DCC4E8E729D16D130047153E /* Window+Extension.swift in Sources */,
 				DCF258B429B73CC200603658 /* APIServices.swift in Sources */,
 				DCF258D629B8A85D00603658 /* HomeMovieCellViewModel.swift in Sources */,
@@ -584,6 +604,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FamousFilmsUsingMVVM/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Famous Films";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -614,6 +635,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FamousFilmsUsingMVVM/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Famous Films";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

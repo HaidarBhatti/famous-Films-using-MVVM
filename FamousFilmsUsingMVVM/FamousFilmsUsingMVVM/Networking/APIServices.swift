@@ -35,7 +35,7 @@ class APIServices{
         }.resume()
     }
     
-    static func getWeekTrendingMovies(mediaType: MediaType = .movie, timeWindow: TimeWindow = .week, completionHandler: @escaping (_ result: Result<TrendingMoviesModel,NetworkError>) -> Void ){
+    static func getWeekTrendingMovies(mediaType: MediaType = .movie, timeWindow: TimeWindow = .week, completionHandler: @escaping (_ result: Result<TrendingWeekMoviesModel,NetworkError>) -> Void ){
         
         let instance = NetworkConstant.shared
         let stringURL = instance.serverAddress+instance.trending+"\(mediaType.rawValue)/"+"\(timeWindow.rawValue)?\(instance.apiStringWithKey)"
@@ -46,7 +46,7 @@ class APIServices{
         }
         
         URLSession.shared.dataTask(with: url) { dataResponse, urlResponse, error in
-            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(TrendingMoviesModel.self, from: data){
+            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(TrendingWeekMoviesModel.self, from: data){
                 completionHandler(.success(resultData))
             }
             else{
@@ -55,7 +55,7 @@ class APIServices{
         }.resume()
     }
     
-    static func getPopularMovies(language: OriginalLanguage, page: Int, completionHandler: @escaping (_ result: Result<PopularMoviesModel,NetworkError>) -> Void ){
+    static func getPopularMovies(language: OriginalLanguage, page: Int, completionHandler: @escaping (_ result: Result<PopularStreamingMoviesModel,NetworkError>) -> Void ){
         
         let instance = NetworkConstant.shared
         let stringURL = instance.serverAddress+instance.movie+"/\(instance.popular)?"+"\(instance.apiStringWithKey)&\(instance.language)=\(language.rawValue)&\(instance.page)=\(page)"
@@ -66,7 +66,7 @@ class APIServices{
         }
         
         URLSession.shared.dataTask(with: url) { dataResponse, urlResponse, error in
-            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(PopularMoviesModel.self, from: data){
+            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(PopularStreamingMoviesModel.self, from: data){
                 completionHandler(.success(resultData))
             }
             else{
@@ -78,7 +78,6 @@ class APIServices{
     
     static func getPopularShowsOnTV(completionHandler: @escaping (_ result: Result<PopularShowsOnTVModel,NetworkError>) -> Void ){
         let stringURL = "https://api.themoviedb.org/3/tv/popular?api_key=d1d27f2bf81b0d3c9bfe65fb90485381"
-        
         guard let url = URL(string: stringURL) else {
             completionHandler(.failure(.urlError))
             return
@@ -120,7 +119,7 @@ class APIServices{
 extension APIServices{
     static func getMovieDetails(movieID: Int, completionHandler: @escaping (_ result: Result<MovieDetailsModel, NetworkError>) -> Void ){
         let instance = NetworkConstant.shared
-        let stringURL = instance.serverAddress+instance.movie+"/\(movieID)?\(instance.apiStringWithKey)"
+        let stringURL = instance.serverAddress+instance.movie+"/\(movieID)?\(instance.apiStringWithKey)&append_to_response=credits"
         guard let url = URL(string: stringURL) else {
             completionHandler(.failure(.urlError))
             return

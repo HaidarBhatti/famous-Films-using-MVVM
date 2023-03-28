@@ -10,6 +10,7 @@ import SDWebImage
 
 class MainMovieCollectionCell: UICollectionViewCell {
     
+    @IBOutlet weak var cellBGView: UIView!
     @IBOutlet weak var imgMovie: UIImageView!
     @IBOutlet weak var lblMovieTitle: UILabel!
     @IBOutlet weak var lblMovieReleaseDate: UILabel!
@@ -30,6 +31,7 @@ class MainMovieCollectionCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imgMovie.round(5)
+        cellBGView.round(5)
         viewProgressBar.makeCircleRound()
         addCircularProgressBar()
     }
@@ -54,19 +56,17 @@ class MainMovieCollectionCell: UICollectionViewCell {
     func setProgress(voteAvg: String){
         progressView.progress = Float(String(format: "%.1f", Float(voteAvg)!/100.0)) ?? 0.0
         if let intPorgress = Int(voteAvg){
-            switch intPorgress{
-            case 0:
-                progressView.progressColor = .red
-                progressView.trackColor = .red.withAlphaComponent(0.1)
-            case 71...100:
+            if intPorgress >= 71 && intPorgress <= 100{
                 progressView.progressColor = .green
                 progressView.trackColor = .green.withAlphaComponent(0.1)
-            case 51...70:
+            }
+            else if intPorgress > 0 && intPorgress < 40{
+                progressView.progressColor = .red
+                progressView.trackColor = .red.withAlphaComponent(0.1)
+            }
+            else{
                 progressView.progressColor = .yellow
                 progressView.trackColor = .yellow.withAlphaComponent(0.1)
-            default:
-                progressView.progressColor = .white
-                progressView.trackColor = .white.withAlphaComponent(0.1)
             }
         }
     }

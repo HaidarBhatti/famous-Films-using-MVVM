@@ -28,6 +28,31 @@ class MovieCellData{
         movieBackdropPathImageURL = makeImageURL(imageLink: movie.backdropPath)
     }
     
+    init(movie: PopularStreamingMovies){
+        id = movie.id!
+        movieTitle = movie.title!
+        movieReleaseDate = movie.releaseDate ?? ""
+        voteAverage = movie.voteAverage!
+        overview = movie.overview!
+        movieImageURL = makeImageURL(imageLink: movie.posterPath!)
+        if let url = movie.backdropPath{
+            movieBackdropPathImageURL = makeImageURL(imageLink: url)
+        }
+        else{
+            movieBackdropPathImageURL = nil
+        }
+    }
+    
+    init(movie: TrendingThisWeekMovies){
+        id = movie.id!
+        movieTitle = movie.title!
+        movieReleaseDate = movie.releaseDate!
+        voteAverage = movie.voteAverage!
+        overview = movie.overview!
+        movieImageURL = makeImageURL(imageLink: movie.posterPath!)
+        movieBackdropPathImageURL = makeImageURL(imageLink: movie.backdropPath!)
+    }
+    
     init(movie: MovieForDay){
         id = movie.id!
         movieTitle = movie.title!
@@ -46,6 +71,16 @@ class MovieCellData{
         overview = movie.overview
         movieImageURL = makeImageURL(imageLink: movie.posterPath)
         movieBackdropPathImageURL = makeImageURL(imageLink: movie.backdropPath)
+    }
+    
+    init(shows: Shows){
+        id = shows.id!
+        movieTitle = shows.name ?? shows.originalName ?? ""
+        movieReleaseDate = shows.firstAirDate!
+        voteAverage = shows.voteAverage!
+        overview = shows.overview!
+        movieImageURL = makeImageURL(imageLink: shows.posterPath ?? shows.backdropPath ?? "")
+        movieBackdropPathImageURL = makeImageURL(imageLink: shows.backdropPath ?? shows.posterPath ?? "")
     }
     
     func makeImageURL(imageLink: String) -> URL?{

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,10 +22,10 @@
                         <rect key="frame" x="4" y="8" width="234" height="362"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="74x-ow-O3B">
-                                <rect key="frame" x="0.0" y="0.0" width="234" height="296.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="234" height="288.5"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="KoP-ZW-P8Z">
-                                <rect key="frame" x="8" y="328.5" width="218" height="33.5"/>
+                                <rect key="frame" x="8" y="320.5" width="218" height="33.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtp-SJ-SIB">
                                         <rect key="frame" x="0.0" y="0.0" width="218" height="17"/>
@@ -46,7 +47,7 @@ Title</string>
                                 </constraints>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SWI-iC-kU6">
-                                <rect key="frame" x="8" y="271.5" width="50" height="50"/>
+                                <rect key="frame" x="8" y="263.5" width="50" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vyr-Mx-Kki">
                                         <rect key="frame" x="14.5" y="16.5" width="16" height="17"/>
@@ -72,14 +73,14 @@ Title</string>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="KoP-ZW-P8Z" firstAttribute="top" secondItem="74x-ow-O3B" secondAttribute="bottom" constant="32" id="WFZ-CS-8eL"/>
                             <constraint firstItem="KoP-ZW-P8Z" firstAttribute="leading" secondItem="3Wk-x9-4VM" secondAttribute="leading" constant="8" id="YcN-CT-TxI"/>
                             <constraint firstItem="74x-ow-O3B" firstAttribute="top" secondItem="3Wk-x9-4VM" secondAttribute="top" id="c6m-sC-Meo"/>
                             <constraint firstItem="SWI-iC-kU6" firstAttribute="leading" secondItem="KoP-ZW-P8Z" secondAttribute="leading" id="eE4-sZ-vYY"/>
                             <constraint firstItem="74x-ow-O3B" firstAttribute="leading" secondItem="3Wk-x9-4VM" secondAttribute="leading" id="hBU-yc-22Y"/>
-                            <constraint firstAttribute="bottom" secondItem="KoP-ZW-P8Z" secondAttribute="bottom" id="jaY-fQ-PGf"/>
+                            <constraint firstAttribute="bottom" secondItem="KoP-ZW-P8Z" secondAttribute="bottom" constant="8" id="jaY-fQ-PGf"/>
                             <constraint firstItem="SWI-iC-kU6" firstAttribute="centerY" secondItem="74x-ow-O3B" secondAttribute="centerY" multiplier="2" id="o6q-Z5-kYO"/>
                             <constraint firstAttribute="trailing" secondItem="KoP-ZW-P8Z" secondAttribute="trailing" constant="8" id="rxI-O5-pqr"/>
                             <constraint firstAttribute="trailing" secondItem="74x-ow-O3B" secondAttribute="trailing" id="wWA-cC-n5o"/>
@@ -97,6 +98,7 @@ Title</string>
             </constraints>
             <size key="customSize" width="242" height="378"/>
             <connections>
+                <outlet property="cellBGView" destination="3Wk-x9-4VM" id="vLS-vi-cQn"/>
                 <outlet property="imgMovie" destination="74x-ow-O3B" id="hI6-c1-9Hr"/>
                 <outlet property="lblMovieReleaseDate" destination="ZkS-Vg-EUq" id="8dH-9g-cXE"/>
                 <outlet property="lblMovieTitle" destination="Vtp-SJ-SIB" id="22X-ab-1Li"/>
@@ -107,6 +109,9 @@ Title</string>
         </collectionViewCell>
     </objects>
     <resources>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

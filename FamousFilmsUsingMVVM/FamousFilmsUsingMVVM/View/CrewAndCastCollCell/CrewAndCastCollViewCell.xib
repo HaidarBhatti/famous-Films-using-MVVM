@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CrewAndCastCollViewCell" id="gTV-IL-0wX" customClass="CrewAndCastCollViewCell" customModule="FamousFilmsUsingMVVM" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="186"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="150" height="186"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bLh-ba-9dr">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="186"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sN2-0y-iov">
+                                <rect key="frame" x="0.0" y="0.0" width="150" height="144"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="kDW-11-L4z">
+                                <rect key="frame" x="8" y="148" width="134" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keanu Reeves" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5O-Qx-j8F">
+                                        <rect key="frame" x="0.0" y="0.0" width="134" height="15"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Wick" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jzc-6J-UjK">
+                                        <rect key="frame" x="0.0" y="15" width="134" height="15"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="15" id="Pr1-AI-E0u"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstItem="kDW-11-L4z" firstAttribute="top" secondItem="sN2-0y-iov" secondAttribute="bottom" constant="4" id="9Wf-0A-gl4"/>
+                            <constraint firstAttribute="bottom" secondItem="kDW-11-L4z" secondAttribute="bottom" constant="8" id="G3a-fd-QcA"/>
+                            <constraint firstAttribute="trailing" secondItem="kDW-11-L4z" secondAttribute="trailing" constant="8" id="LZn-TW-gMu"/>
+                            <constraint firstItem="sN2-0y-iov" firstAttribute="top" secondItem="bLh-ba-9dr" secondAttribute="top" id="Pod-7M-8tv"/>
+                            <constraint firstItem="kDW-11-L4z" firstAttribute="leading" secondItem="bLh-ba-9dr" secondAttribute="leading" constant="8" id="TZ0-Mg-63L"/>
+                            <constraint firstAttribute="trailing" secondItem="sN2-0y-iov" secondAttribute="trailing" id="YmL-fo-hTf"/>
+                            <constraint firstItem="sN2-0y-iov" firstAttribute="leading" secondItem="bLh-ba-9dr" secondAttribute="leading" id="g3w-6o-R36"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="bLh-ba-9dr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0ul-1S-cUK"/>
+                <constraint firstItem="bLh-ba-9dr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="QoJ-dP-3hT"/>
+                <constraint firstAttribute="trailing" secondItem="bLh-ba-9dr" secondAttribute="trailing" id="csW-t9-RwP"/>
+                <constraint firstAttribute="bottom" secondItem="bLh-ba-9dr" secondAttribute="bottom" id="pWi-Yt-Zzm"/>
+            </constraints>
+            <size key="customSize" width="149" height="186"/>
+            <connections>
+                <outlet property="castPortrait" destination="sN2-0y-iov" id="kim-Ck-ND4"/>
+                <outlet property="cellBGView" destination="bLh-ba-9dr" id="nKP-qf-wbc"/>
+                <outlet property="lblCastMovieName" destination="Jzc-6J-UjK" id="rjs-iR-GR5"/>
+                <outlet property="lblCastOriginalName" destination="h5O-Qx-j8F" id="zx4-o5-JiY"/>
+            </connections>
+            <point key="canvasLocation" x="151.14503816793894" y="59.154929577464792"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

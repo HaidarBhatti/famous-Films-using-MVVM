@@ -81,4 +81,57 @@ class DetailsMovieViewModel{
         }
         return genresString
     }
+    
+    func getLanguage(name: String) -> String{
+        if let movieDetails = movieDetails{
+            if let spokenLanguages = movieDetails.spokenLanguages{
+                if let language = spokenLanguages.first(where: { $0.iso6391 == name }){
+                    return language.englishName!
+                }
+                else{
+                    return ""
+                }
+            }
+            else{
+                return ""
+            }
+        }
+        else{
+            return ""
+        }
+    }
+}
+
+extension DetailsMovieViewModel{
+    func noOfSections() -> Int{
+        1
+    }
+    
+    func noOfItemsInsection() -> Int{
+        if let credits = movieDetails?.credits{
+            if let cast = credits.cast{
+                return cast.count
+            }
+            else{
+                return 0
+            }
+        }
+        else{
+            return 0
+        }
+    }
+    func cellFor(ItemAt item: Int) -> CastModel?{
+        if let credits = movieDetails?.credits{
+            if let cast = credits.cast{
+                let castData = cast[item]
+                return CastModel(castImage: castData.profilePathURL, castOriginalName: castData.originalName!, castMovieName: castData.character!, gender: castData.gender!)
+            }
+            else{
+                return nil
+            }
+        }
+        else{
+            return nil
+        }
+    }
 }
