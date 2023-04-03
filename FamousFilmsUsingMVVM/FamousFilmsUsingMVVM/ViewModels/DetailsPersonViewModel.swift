@@ -16,6 +16,7 @@ class DetailsPersonViewModel{
     var group = DispatchGroup()
     var personDetails: PersonDetailsModel?
     var personCastedInMovies : MoviesForPersonModel?
+    var sortedMovies: [CastForMovie] = []
     
     init(personID: Int){
         self.personID = personID
@@ -53,6 +54,9 @@ class DetailsPersonViewModel{
             switch result{
             case .success(let data):
                 self?.personCastedInMovies = data
+                if let sortedMovies = self?.sortAndReturnFirstTenMovies(){
+                    self?.sortedMovies = sortedMovies
+                }
                 self?.group.leave()
             case .failure(let error):
                 print("error: \(error)")
@@ -65,11 +69,8 @@ class DetailsPersonViewModel{
         return 10
     }
     
-    func cellFor(item: Int) -> CastForMovie?{
-        if let sortedMovies = sortAndReturnFirstTenMovies(){
-            return sortedMovies[item]
-        }
-        return nil
+    func cellFor(item: Int) -> CastForMovie{
+        return sortedMovies[item]
     }
     
     func sortAndReturnFirstTenMovies() -> [CastForMovie]?{

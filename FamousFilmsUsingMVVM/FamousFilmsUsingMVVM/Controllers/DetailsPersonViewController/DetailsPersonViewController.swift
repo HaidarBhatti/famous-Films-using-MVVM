@@ -44,6 +44,7 @@ class DetailsPersonViewController: UIViewController {
     func configViews(){
         title = viewModel.screenTitle
         castImageView.round()
+        setUpCollectionView()
     }
     
     func populateValues(){

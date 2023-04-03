@@ -24,12 +24,9 @@ extension DetailsPersonViewController: UICollectionViewDelegate, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let movie = viewModel.cellFor(item: indexPath.item) {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollViewCell.identifier, for: indexPath) as! MovieCollViewCell
-            cell.setUpCell(castData: movie)
-            return cell
-        }
-        return UICollectionViewCell()
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollViewCell.identifier, for: indexPath) as! MovieCollViewCell
+        cell.setUpCell(castData: viewModel.cellFor(item: indexPath.item))
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
