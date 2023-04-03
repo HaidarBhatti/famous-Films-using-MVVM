@@ -7,6 +7,6 @@ target 'FamousFilmsUsingMVVM' do
 
   # Pods for FamousFilmsUsingMVVM
 pod 'SJFluidSegmentedControl'
-
+pod "ExpandableLabel" #for the more/less button at the end of the label
 
 end

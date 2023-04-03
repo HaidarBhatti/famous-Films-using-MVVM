@@ -59,5 +59,16 @@ class NetworkConstant{
             return "page"
         }
     }
+    
+    public var person: String{
+        get{
+            return "person"
+        }
+    }
+    public var movieCredits: String{
+        get{
+            return "movie_credits"
+        }
+    }
         
 }

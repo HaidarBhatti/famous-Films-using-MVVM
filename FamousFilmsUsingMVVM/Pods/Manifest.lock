@@ -1,16 +1,20 @@
 PODS:
+  - ExpandableLabel (0.5.2)
   - SJFluidSegmentedControl (1.1.2)
 
 DEPENDENCIES:
+  - ExpandableLabel
   - SJFluidSegmentedControl
 
 SPEC REPOS:
   trunk:
+    - ExpandableLabel
     - SJFluidSegmentedControl
 
 SPEC CHECKSUMS:
+  ExpandableLabel: c2fab6d27860c572d67134b30522a5917746171d
   SJFluidSegmentedControl: efd26ea5f0832c715e2750314a2dc0cc81e39ae5
 
-PODFILE CHECKSUM: 8a23948a9b997ecf5a6fcb6797e580866a494aa2
+PODFILE CHECKSUM: 1c3771da554ea43b6db5defc30cd6ff81e098608
 
 COCOAPODS: 1.11.3

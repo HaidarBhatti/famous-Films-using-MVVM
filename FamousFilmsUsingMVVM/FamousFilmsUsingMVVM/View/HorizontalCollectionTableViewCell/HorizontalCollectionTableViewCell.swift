@@ -32,8 +32,7 @@ class HorizontalCollectionTableViewCell: UITableViewCell {
     }
     
     func openDetails(movieId: Int){
-        guard let movie = viewModel?.retrieveMovie(with: movieId) else { return }
-        let viewModel = DetailsMovieViewModel(movieID: movie.id)
+        let viewModel = DetailsMovieViewModel(movieID: movieId)
         let detailsViewController = DetailsMovieViewController(viewModel: viewModel)
         DispatchQueue.main.async {
             UIApplication.shared.keyWindow!.rootViewController!.topMostViewController().navigationController?.pushViewController(detailsViewController, animated: true)

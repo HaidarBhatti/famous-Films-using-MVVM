@@ -30,8 +30,8 @@ class MainMovieCollectionCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        imgMovie.round(5)
-        cellBGView.round(5)
+        imgMovie.round()
+        cellBGView.round()
         viewProgressBar.makeCircleRound()
         addCircularProgressBar()
     }

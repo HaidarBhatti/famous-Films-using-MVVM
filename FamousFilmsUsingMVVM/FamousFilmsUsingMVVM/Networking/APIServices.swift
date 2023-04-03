@@ -134,3 +134,42 @@ extension APIServices{
         }.resume()
     }
 }
+
+//MARK: - This extension will get the data for the DetailsPersonViewController
+extension APIServices{
+    static func getPersonDetails(personID: Int, completionHandler: @escaping (_ result: Result<PersonDetailsModel, NetworkError>) -> Void ){
+        let instance = NetworkConstant.shared
+        let stringURL = instance.serverAddress+instance.person+"/\(personID)?\(instance.apiStringWithKey)"
+        guard let url = URL(string: stringURL) else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        URLSession.shared.dataTask(with: url) { dataResponse, urlResponse, error in
+            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(PersonDetailsModel.self, from: data){
+                completionHandler(.success(resultData))
+            }
+            else{
+                completionHandler(.failure(.canNotParseData))
+            }
+        }.resume()
+    }
+    
+    static func getMoviesForPerson(withID personID: Int, completionHandler: @escaping (_ result: Result<MoviesForPersonModel, NetworkError>) -> Void ){
+        
+//    https://api.themoviedb.org/3/person/4491/movie_credits?api_key=d1d27f2bf81b0d3c9bfe65fb90485381
+        let instance = NetworkConstant.shared
+        let stringURL = instance.serverAddress+instance.person+"/\(personID)/\(instance.movieCredits)?\(instance.apiStringWithKey)"
+        guard let url = URL(string: stringURL) else {
+            completionHandler(.failure(.urlError))
+            return
+        }
+        URLSession.shared.dataTask(with: url) { dataResponse, urlResponse, error in
+            if error == nil, let data = dataResponse, let resultData = try? JSONDecoder().decode(MoviesForPersonModel.self, from: data){
+                completionHandler(.success(resultData))
+            }
+            else{
+                completionHandler(.failure(.canNotParseData))
+            }
+        }.resume()
+    }
+}

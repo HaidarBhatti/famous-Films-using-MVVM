@@ -121,10 +121,16 @@ extension DetailsMovieViewModel{
         }
     }
     func cellFor(ItemAt item: Int) -> CastModel?{
+        if let castData = getCastFor(item: item){
+            return CastModel(castImage: castData.profilePathURL, castOriginalName: castData.originalName!, castMovieName: castData.character!, gender: castData.gender!)
+        }
+        return nil
+    }
+    
+    func getCastFor(item: Int) -> Cast?{
         if let credits = movieDetails?.credits{
             if let cast = credits.cast{
-                let castData = cast[item]
-                return CastModel(castImage: castData.profilePathURL, castOriginalName: castData.originalName!, castMovieName: castData.character!, gender: castData.gender!)
+                return cast[item]
             }
             else{
                 return nil
@@ -133,5 +139,12 @@ extension DetailsMovieViewModel{
         else{
             return nil
         }
+    }
+    
+    func getPersonId(forItem item: Int) -> Int?{
+        if let castData = getCastFor(item: item){
+            return castData.id
+        }
+        return nil
     }
 }

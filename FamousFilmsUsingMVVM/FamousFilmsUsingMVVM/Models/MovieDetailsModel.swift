@@ -288,9 +288,7 @@ struct Cast: Codable {
         }
     }
     
-    init() {
-        
-    }
+    init() { }
     
 }
 struct Crew: Codable {
